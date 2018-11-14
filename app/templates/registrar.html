@@ -129,12 +129,12 @@
 
 		<section>
 			<div class="content pure-u-1 pure-u-md-4-4 ml-3">
-			<form>
+			<form method="post" action="/verifica_registro">
 				<div class="form-group">
 				    <input type="text" name="nome" class="form-control" id="nome" required="required" placeholder="Nome">
 				</div>
 				<div class="form-group">
-					<input type="text" name="sobrenome" class="form-control" id="sobrenome" required="required"placeholder="Sobrenome">
+					<input type="text" name="sobrenome" class="form-control" id="sobrenome" required="required" placeholder="Sobrenome">
 				</div>
 				<div class="form-group">
 					<input type="text" name="contato" class="form-control" maxlength="13" OnKeyPress="formatar('##-#####-####', this)" required="required" value="" id="contato" placeholder="Contato" > 
@@ -152,22 +152,22 @@
 				      <a class="dropdown-item" value="Outra">Outra</a>
 				    </div>
 				  </div>
-				  <input type="text" name="bairro" class="form-control" id="bairro" required="required"placeholder="Bairro">
+				  <input type="text" name="bairro" class="form-control" id="bairro" placeholder="Bairro">
 				</div>
 				<div class="form-group">
-					<input type="text" name="endereco" class="form-control" id="endereco" required="required"placeholder="Endereço">
+					<input type="text" name="endereco" class="form-control" id="endereco" placeholder="Endereço">
 				</div>
 				<div class="form-group">
-					<input type="text" name="cpf" class="form-control" maxlength="14" OnKeyPress="formatar('###.###.###-##', this)" required="required" value="" id="cpf" placeholder="CPF">
+					<input type="text" name="cpf" class="form-control" maxlength="14" OnKeyPress="formatar('###.###.###-##', this)"  value="" id="cpf" placeholder="CPF">
 				</div>
 				<div class="form-group">
-					   <input type="email" name="email" class="form-control" required="required" id="email" placeholder="Email">
+					   <input type="email" name="email" class="form-control"  id="email" placeholder="Email">
 				</div>
 				<div class="form-group">
-					<input type="password" name="email" class="form-control" required="required" id="senha" placeholder="Senha">
+					<input type="password" name="email" class="form-control"  id="senha" placeholder="Senha">
 				</div>
 				<div class="form-group">
-					<input type="password" name="senha" class="form-control" required="required" id="senha" placeholder="Confirmar senha">
+					<input type="password" name="senha" class="form-control"  id="senha" placeholder="Confirmar senha">
 				</div>
 				<div class="form-check">
 				  <label class="form-check-label labelblack">
