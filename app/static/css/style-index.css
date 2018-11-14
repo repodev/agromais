@@ -1,0 +1,295 @@
+ *{padding:0;margin:0;}	
+ body{
+      font-family: 'PT Sans', sans-serif;
+      display: grid;
+      color: white;
+      font-weight: 400;
+      background-color: #f8f9fa;   
+    }
+    p{
+      color: #afafaf;
+    }
+img{
+  max-width:100%;
+  height: auto;
+}
+h1,h2,h3{
+  font-weight: 700;
+}
+h5,h6{
+  font-weight: 400;
+  color: #eee;
+}
+
+
+
+    /*nav e header*/
+#form-busca{
+	margin-left: 15%;
+	margin-right: 10%;
+		
+}
+#logo{
+	margin-left: 5%;
+}
+#conta{
+	margin-left: 5%;
+}
+#navb{
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05);
+}
+#imglogo{
+  width: 80px; 
+  height: auto;
+}
+#btn-registrar{
+  margin-left: 5%;
+}
+.logoab{
+  font-size:25px;
+  font-weight: 400;
+  font-family: 'Indie Flower', cursive; 
+  color: #009B36; 
+  text-decoration: none;
+}
+.logoab:hover{
+  text-decoration: none;
+  color: #009B36;
+}
+#imgsearch{
+  max-width: 20px; 
+  height: auto;
+}
+#logos{
+  max-width: 30%; 
+  margin-top: -30%; 
+  height: auto;
+}
+#startb{
+  margin-top: -1%;
+}
+
+/*reutilizaveis*/
+.floatr{
+  float: right;
+}
+.floatl{
+  float: left;
+}
+.labelblack{
+  color: black;
+}
+.awhite{
+  color: white;
+}
+.txtc{
+  text-align: center;
+}
+.fontr{
+  font-family: 'Roboto Slab', serif;
+}
+.margint-3{
+  margin-top: -3.5%;
+}
+.margint2{
+  margin-top: 2%;
+}
+.noresize{
+  resize: none;
+}
+.ahover:hover{
+  color: white;
+}
+.colorb{
+  color: black;
+}
+.marginb5{
+  margin-bottom: 5%;
+}
+.cshadow{
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05);
+}
+.pwhite{
+  color: white;
+}
+.footp{
+  position: fixed;
+  bottom: 0px;
+}
+.btncshadow:hover{
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+}
+.colorg{
+  color: #eee;
+}
+
+/*Sidebar de categorias*/
+.categoria{
+  display: block;
+  background-color:#f8f9fa;
+  color: black;
+}
+.categoria a{
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  color: black;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+.badge{
+  float: right;
+  margin-top: 2%; 
+}
+
+/*produtos*/
+.produtos{
+  display: block;
+  background-color:#f8f9fa;
+  color: black;
+   
+}
+.content-subhead {
+    text-transform: uppercase;
+    color: #aaa;
+    border-bottom: 1px solid #eee;
+    padding: 0.4em 0;
+    font-size: 100%;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+}
+.produtos p{
+	color: black;	
+}
+
+/*btn floating materialize */
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#009B36;
+	color:#FFFFFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+.float:hover{
+	background-color: #007328;
+
+}
+.my-float{
+	margin-top:22px;
+	color: white;
+}
+/*card de produtos*/
+
+.imgc{
+	max-width: 60%;
+	max-height: 60%;
+  width: auto;
+  height: auto;
+	margin-top: 15%;
+	margin-left: 18%; 
+}
+.cardf{
+	max-width: 60%;
+	height: auto;
+	font-size: 13px;
+  font-variant: small-caps;
+  font-size-adjust: 14px;
+
+}
+.cardb{
+	max-width: 100%;
+	height: auto;
+	font-size: 13px;
+  font-variant: small-caps;
+  font-size-adjust: 14px;
+}
+.card{
+	max-width: 100%;
+  max-height: 100%;
+  width: auto;
+	height: auto;
+	margin-bottom: 1px;
+}
+.cardh4{
+	color: black;
+	text-align: center;
+}
+.cardp{
+	text-align: center;
+}
+.cardform{
+  text-align: center;
+  text-orientation: sideways;
+}
+
+/*footer*/
+.footer {
+    background: #111;
+    display: block;
+    bottom: 0;
+    width: 100%;
+}
+.l-box {
+    padding: 1em;
+}
+.is-center {
+    text-align: center;
+}
+
+
+/*carousel*/
+.caroua{
+  background-color: #015249;
+}
+
+/*tela de login*/
+#posicao{
+  margin-top: 10%;
+  margin-left: 30%;
+  margin-right: 10%;
+
+}
+#logol{
+  font-size: 40px;
+  margin-left: 40%;
+}
+#facasl{
+  text-align: center;
+}
+#formlogin form input{
+  margin-bottom: 5%;
+}
+
+/*perfil*/
+
+.perfil{
+  display: block;
+  margin-top: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: black;
+}
+.perfil img{
+  max-width: 100%;
+  height: auto;
+  margin-left: 20%;
+}
+.form-perfil{
+  float: left;
+  margin-left: 10%;
+  text-align: center;
+}
+.linkprod{
+  color: #afafaf;
+}
+.linkprod:hover{
+  text-decoration: underline;
+  color: #afafaf;
+}
+
+
