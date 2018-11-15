@@ -1,6 +1,7 @@
 from flask import render_template,request
 from app import app
 
+
 @app.route("/registro/")
 def index():
 	return render_template('registrar.html')
@@ -8,6 +9,7 @@ def index():
 @app.route("/verifica_registro",methods=['GET','POST'])
 def verifica():
 	if(request.method == 'POST'):
-		nome = request.form['nome']
-		sobrenome = request.form['sobrenome']
+		perfil = Perfil()
+		perfil.setNome = request.form['nome']
+		perfil.setSobrenome = request.form['sobrenome']
 
