@@ -2,6 +2,7 @@ from flask import render_template,request
 from app import app
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
+from app.models import *
 
 @app.route("/registro/")
 def index():
@@ -13,4 +14,5 @@ def verifica():
 		perfil = Perfil()
 		perfil.setNome (request.form['nome'])
 		perfil.setSobrenome (request.form['sobrenome'])
+		inserir_perfil(perfil.getNome(),perfil.getSobrenome())
 		return perfil.getNome()
