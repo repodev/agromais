@@ -22,5 +22,5 @@ def verifica():
 		perfil.setEmail(request.form['email'])
 		perfil.setSenha(request.form['senha'])
 		
-		resposta=inserir_perfil(perfil.getCpf(),perfil.getEmail())
+		resposta=inserir_perfil(perfil.getNome,perfil.getSobrenome,perfil.getContato,perfil.getCidades,perfil.getBairro,perfil.getEndereco,perfil.getCpf,perfil.getEmail,perfil.getSenha)
 		return resposta

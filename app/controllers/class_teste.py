@@ -22,7 +22,7 @@ class Perfil:
 		self.__cpf = cpf
 
 	def setEmail(self,email):
-		self.__email = cpf
+		self.__email = email
 
 	def setSenha(self,senha):
 		self.__senha = senha
