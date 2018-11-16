@@ -14,5 +14,14 @@ def verifica():
 		perfil = Perfil()
 		perfil.setNome (request.form['nome'])
 		perfil.setSobrenome (request.form['sobrenome'])
+
+		request.form['contato']
+		request.form['cidades']
+		request.form['bairro']
+		request.form['endereco']
+		request.form['cpf']
+		request.form['email']
+		request.form['senha']
+		
 		resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome())
 		return resposta
