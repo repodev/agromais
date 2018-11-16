@@ -14,14 +14,13 @@ def verifica():
 		perfil = Perfil()
 		perfil.setNome (request.form['nome'])
 		perfil.setSobrenome (request.form['sobrenome'])
-
-		request.form['contato']
-		request.form['cidades']
-		request.form['bairro']
-		request.form['endereco']
-		request.form['cpf']
-		request.form['email']
-		request.form['senha']
+		perfil.setContato(request.form['contato'])
+		perfil.setCidades(request.form['cidades'])
+		perfil.setBairro(request.form['bairro'])
+		perfil.setEndereco(request.form['endereco'])
+		perfil.setCpf(request.form['cpf'])
+		perfil.setEmail(request.form['email'])
+		perfil.setSenha(request.form['senha'])
 		
-		resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome())
+		resposta=inserir_perfil(perfil.getCpf(),perfil.getEmail())
 		return resposta
