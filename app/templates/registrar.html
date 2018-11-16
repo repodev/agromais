@@ -131,7 +131,7 @@
 			<div class="content pure-u-1 pure-u-md-4-4 ml-3">
 			<form method="post" action="/verifica_registro">
 				<div class="form-group">
-				    <input type="text" name="nome" class="form-control" id="nome" required="required" placeholder="Nome">
+				    <input type="text" name="nome" class="form-control" id="nome" required="required" placeholder="Nome" >
 				</div>
 				<div class="form-group">
 					<input type="text" name="sobrenome" class="form-control" id="sobrenome" required="required" placeholder="Sobrenome">
@@ -142,7 +142,7 @@
 				<div class="input-group mt-3 mb-3">
 				  <div class="input-group-prepend">				  
 					
-				    <select name='cidades'>
+				    <select name='cidades' required>
 				      <option value="crato">Crato</option>
 				      <option value="juazeiro do norte">Juazeiro do Norte</option>
 				      <option value="barbalha">Barbalha</option>
@@ -150,22 +150,22 @@
 				      <option value="Outra">Outra</option>
 						</select>
 				  </div>
-				  <input type="text" name="bairro" class="form-control" id="bairro" placeholder="Bairro">
+				  <input type="text" name="bairro" class="form-control" id="bairro" placeholder="Bairro" required>
 				</div>
 				<div class="form-group">
-					<input type="text" name="endereco" class="form-control" id="endereco" placeholder="Endereço">
+					<input type="text" name="endereco" class="form-control" id="endereco" placeholder="Endereço" required>
 				</div>
 				<div class="form-group">
-					<input type="text" name="cpf" class="form-control" maxlength="14" OnKeyPress="formatar('###.###.###-##', this)"  id="cpf" placeholder="CPF">
+					<input type="text" name="cpf" class="form-control" maxlength="14" OnKeyPress="formatar('###.###.###-##', this)"  id="cpf" placeholder="CPF" required>
 				</div>
 				<div class="form-group">
-					   <input type="email" name="email" class="form-control"  id="email" placeholder="Email">
+					   <input type="email" name="email" class="form-control"  id="email" placeholder="Email" required>
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control"  id="senha" placeholder="Senha">
+					<input type="password" class="form-control"  id="senha" placeholder="Senha" required>
 				</div>
 				<div class="form-group">
-					<input type="password" name="senha" class="form-control"  id="senha" placeholder="Confirmar senha">
+					<input type="password" name="senha" class="form-control"  id="senha" placeholder="Confirmar senha" required>
 				</div>
 				<div class="form-check">
 				  <label class="form-check-label labelblack">
@@ -174,7 +174,7 @@
 				</div>
 				<div class="form-group form-check">
 					<label class="form-check-label labelblack">
-						<input class="form-check-input" type="checkbox" style=""> Aceitar <a href="termos.html">termos de Usuário.</a>
+						<input class="form-check-input" type="checkbox" style="" required> Aceitar <a href="termos.html">termos de Usuário.</a>
 					</label>
 				</div>
 				<button type="submit" class="btn btn-success floatr marginb5 cshadow">REGISTRAR</button>
