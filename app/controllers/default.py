@@ -11,6 +11,6 @@ def index():
 def verifica():
 	if(request.method == 'POST'):
 		perfil = Perfil()
-		perfil.setNome = request.form['nome']
-		perfil.setSobrenome = request.form['sobrenome']
-		return 'teste'
+		perfil.setNome (request.form['nome'])
+		perfil.setSobrenome (request.form['sobrenome'])
+		return perfil.getNome()

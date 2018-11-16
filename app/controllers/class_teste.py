@@ -1,9 +1,13 @@
 class Perfil:
+	#SETS
 	def setNome(self,nome):
-		self.nome=nome
+		self.__nome = nome
+
 	def setSobrenome(self,sobrenome):
-		self.sobrenome=sobrenome
+		self.__sobrenome = sobrenome
+	#GETS
 	def getNome(self):
-		return self.nome
+		return self.__nome
+
 	def getSobrenome(self):
-		return self.sobrenome
+		return self.__sobrenome
