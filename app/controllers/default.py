@@ -53,12 +53,6 @@ def verifica():
 
 
 
-
-
-
-
-
-
 @app.errorhandler(404)
 def page_not_found(error):
     return "<h1 style=text-align:center;>Estamos esperando a chuva!</h1>", 404
