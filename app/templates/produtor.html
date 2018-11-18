@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+<!--Inicio Head -->
+{% block title %}{{id}} - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+{{ super() }}
+
+	<script type="text/javascript">
+		function goFocus(elementID){
+
+		document.getElementById(elementID).focus();
+
+	}
+	</script>
+
+{% endblock %}
+
+{% block content %}
+<body onload="goFocus('search')">
+
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top cshadow">
+
+    <div class="navbar-nav mx-auto w-100 order-1 is-center">    
+      <a class="navbar-brand" href="index.html">
+        <img src="{{ url_for('static',filename='img/logon.png')}}" class="imglogo" style="width: 120px;">
+      </a>
+    </div>
+
+    <div class="navbar-nav mx-auto w-100 order-2">
+      <form class="form-inline">
+        <div class="input-group ml-3">
+          <input type="text" class="form-control cshadow btncshadow" placeholder="Buscar" style="border-color: #28A745; width: 360px; max-width: 200px;">
+          <div class="input-group-append">
+            <button class="btn btn-outline-success cshadow btncshadow mb-1" type="submit" style="font-size: 0px;"><i class="material-icons">
+            search</i></button>
+          </div>
+          <button class="navbar-toggler ml-1 mb-1 float-right" type="button" data-toggle="collapse" data-target=".dual-collapse2" style="font-size: 0px;">
+            <i class="material-icons">menu</i>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto mr-auto">
+        <li class="nav-item">
+          <div class="input-group mt-3 mb-3">
+        <div class="input-group">
+          <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown">
+            CONTA
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="produtor.html">
+              <i class="material-icons">perm_identity</i>Meu Perfil</a>
+            <div class="dropdown-divider mt-3 mb-3"></div>
+            <a class="dropdown-item" href="notificacoes.html">
+              <i class="material-icons">notifications_active</i>Notificações</a>
+            <a class="dropdown-item" href="meusprodutos.html">
+              <i class="material-icons" >apps</i>Meus Produtos</a>
+          </div>
+        </div>
+      </div>    
+        </li>
+      </ul>
+    </div>
+              
+</nav>
+
+
+<div class=" pure-g ml-3">
+
+	<div class="pure-u-1 pure-u-lg-5-5">
+		<div class="perfil">
+			<h1 class="content-subhead">Perfil</h1>
+		</div>
+	</div>
+
+  <div class="pure-u-1 pure-u-lg-1-5">
+    <div class="perfil">
+      <img src="{{ url_for('static',filename='img/usuario.png')}}" class="pure-img-responsive">
+    </div>
+  </div>
+  
+  <div class="pure-u-1 pure-u-lg-3-5">
+    <div class="form-perfil">
+      <form>
+        <h1><input type="text" class="form-control-plaintext" value="Fulano de tal" disabled="disabled"></h1>
+        <h5><input type="text" class="form-control-plaintext" value="Vendo Banana" disabled="disabled"></h5>
+        <h6><input type="text" class="form-control-plaintext" value="Crato" disabled="disabled"></h6>
+      </form>
+    </div>
+  </div>  
+</div>
+
+<div class=" pure-g ml-3">
+
+	<div class="ml-3 pure-u-1 pure-u-lg-4-5">
+    <div class="row ml-3">
+      <h1 class="content-subhead ml-3">Produtos</h1>
+  		<div class="card-group">
+        <div class="col-sm-4">
+    		  <div class="card bg-default cshadow">
+            <a href="produto.html">
+              <img class="card-img-top imgc" src="{{ url_for('static',filename='img/banana.png')}}" alt="Card image">
+            </a>
+    		    <div class="card-body ">
+    		      <h4 class="card-title cardh4">Banana</h4>
+              <p class="card-text cardp"><a href="produtor.html" class="linkprod">Fulano de tal {{id}} </a></p>
+              <form class="cardform">
+                <div class="input-group mb-1 ">
+                  <input type="number" class="form-control cardf" placeholder="0" min="0" maxlength="9" />
+                  <div class="input-group-append">
+                    <button class="btn btn-primary cardb">Comprar</button>
+
+                  </div>  
+                </div>
+              </form>
+    		    </div>
+    		  </div>
+        </div>
+        <div class="col-sm-4">      
+    		  <div class="card bg-default cshadow">
+            <a href="produto.html">
+              <img class="card-img-top imgc" src="{{ url_for('static',filename='img/bananaverde.png')}}" alt="Card image">
+            </a>
+            <div class="card-body">
+              <h4 class="card-title cardh4">Banana verde</h4>
+              <p class="card-text cardp"><a href="produtor.html " class="linkprod">Fulano de tal</a></p>
+              <form class="cardform">
+                <div class="input-group mb-1">
+                  <input type="number" class="form-control cardf" placeholder="0" min="0" maxlength="9" />
+                  <div class="input-group-append">
+                    <button class="btn btn-primary cardb">Comprar</button>
+                  </div>  
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+  		</div>
+    </div>
+	</div>
+</div>
+{% endblock %}

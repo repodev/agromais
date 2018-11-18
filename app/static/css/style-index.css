@@ -167,7 +167,7 @@ h5,h6{
 	position:fixed;
 	width:60px;
 	height:60px;
-	bottom:40px;
+	bottom:70px;
 	right:40px;
 	background-color:#009B36;
 	color:#FFFFFF;
@@ -180,9 +180,14 @@ h5,h6{
 
 }
 .my-float{
-	margin-top:22px;
+  margin-top:22px;
 	color: white;
 }
+/*Correcao botoes*/
+.input-group-append {
+  z-index: 0 !important;
+}
+
 /*card de produtos*/
 
 .imgc{
@@ -207,6 +212,7 @@ h5,h6{
 	font-size: 13px;
   font-variant: small-caps;
   font-size-adjust: 14px;
+  
 }
 .card{
 	max-width: 100%;
@@ -291,5 +297,11 @@ h5,h6{
   text-decoration: underline;
   color: #afafaf;
 }
+
+
+
+@media only screen and (max-width: 980px){
+    .imglogo { display: none; }
+    }
 
 

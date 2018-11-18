@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+<!--Inicio Head -->
+{% block title %}Home - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+{{ super() }}
+	<script type="text/javascript">
+		function goFocus(elementID){
+
+		document.getElementById(elementID).focus();
+
+	}
+	</script>
+{% endblock %}
+
+
+
+<!-- Inicio Conteudo -->
+{% block content %}
+<body onload="goFocus('search')">
+
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top cshadow">
+
+    <div class="navbar-nav mx-auto w-100 order-1 is-center">    
+      <a class="navbar-brand" href="{{ url_for('index')}}">
+        <img src="{{ url_for('static',filename='img/logon.png')}}" class="imglogo" style="width: 120px;">
+      </a>
+    </div>
+
+    <div class="navbar-nav mx-auto w-100 order-2">
+      <form class="form-inline">
+        <div class="input-group ml-3">
+          <input type="text" class="form-control cshadow btncshadow" placeholder="Buscar" style="border-color: #28A745; width: 360px; max-width: 200px;">
+          <div class="input-group-append">
+            <button class="btn btn-outline-success cshadow btncshadow mb-1" type="submit" style="font-size: 0px;"><i class="material-icons">
+            search</i></button>
+          </div>
+          <button class="navbar-toggler ml-1 mb-1 float-right" type="button" data-toggle="collapse" data-target=".dual-collapse2" style="font-size: 0px;">
+            <i class="material-icons">menu</i>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link float-right" href="{{ url_for('login') }}">
+                  <button class="btn btn-outline-success cshadow btncshadow">LOGIN</button>
+                </a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link float-right" href="{{ url_for('registro') }}">
+                  <button class="btn btn-outline-success cshadow btncshadow">REGISTRAR</button>
+                </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li class="nav-item">
+                <a class="nav-link float-right" href="{{ url_for('sobre')}}">
+                  <button class="btn btn-outline-success cshadow btncshadow">SOBRE</button>
+                </a>
+            </li>
+            
+        </ul>
+
+         <!-- <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" data-target="dropdown_target">Dropdown
+              <span class="caret"></span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdown_target">
+            <a class="dropdown-item" href="#">PHP</a>
+            <div class="dropdown-divider">
+              
+            </div>
+            <a class="dropdown-item" href="#">CSS</a>
+            <a class="dropdown-item" href="#">BSS</a>
+            </div>    
+          </li>
+
+          <li class="nav-item">
+              <a href="#" class="nav-link">Link</a>   
+          </li>
+          <li class="nav-item">
+              <a href="#" class="nav-link">Link</a>   
+          </li>
+          <li class="nav-item">
+              <a href="#" class="nav-link">Link</a>   
+          </li>
+      </ul> -->
+    </div>
+              
+</nav>
+
+<div class="pure-g ml-3">
+	<div class=" pure-u-1 pure-u-lg-1-5 mr-3">
+		<div class="categoria ml-3">
+			<h1 class="content-subhead ml-3">CATEGORIAS</h1>
+			<div class="list-group">
+				<a href="#" class="list-group-item mb-1 cshadow">+Comprados<span class="badge mb-1">12</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">+Baratos<span class="badge mb-1">03</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">Artesanais<span class="badge mb-1">05</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">Estocáveis<span class="badge mb-1">10</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">Derivados<span class="badge mb-1">08</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">Orgânicos<span class="badge mb-1">02</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">Animais<span class="badge mb-1">03</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">Vegetais<span class="badge mb-1">20</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">Rações<span class="badge mb-1">09</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">Frutas<span class="badge mb-1">12</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">Legumes<span class="badge mb-1">15</span></a>
+				<a href="#" class="list-group-item mb-1 cshadow">Adulbos<span class="badge mb-1">02</span></a>
+        <a href="#" class="list-group-item mb-1 cshadow">Outros<span class="badge mb-1">00</span></a>
+			</div>
+			
+		</div>
+	</div>
+	<div class="pure-u-1 pure-u-lg-3-5 ml-3 mr-3">
+		<h1 class="content-subhead ml-3">Produtos</h1>
+    <div class="row">
+  		<div class="card-group">
+ 
+        {% for cod in cods %}
+         
+        <div class="col-sm-4">
+    		  <div class="card bg-default cshadow">
+            <a href="produto.html">
+              <img class="card-img-top imgc" src="img/alface.png" alt="Card image">
+            </a>
+    		    <div class="card-body ">
+    		      <h4 class="card-title cardh4">Alface</h4>
+              <p class="aprod card-text cardp"><a class="linkprod" href="{{ url_for('perfil',produtor_id=cod )}}">
+                  Alfaces C&A</a></p>
+              <form class="cardform">
+                <div class="input-group mb-1 mt-1">
+                  <input type="number" class="form-control cardf" placeholder="0" min="0" maxlength="9" />
+                  <div class="input-group-append">
+                    <button class="btn btn-primary cardb">Comprar</button>
+                  </div>  
+                </div>
+              </form>
+    		    </div>
+    		  </div>
+        </div>
+        {% endfor %}
+       
+        
+  		</div>
+    </div>
+   
+
+		<div class="float" >
+      <a href="{{ url_for('login')}}" class=" cshadow btncshadow" ><i class="fa fa-plus my-float"></i></a>
+      
+      
+    </div>
+    
+	</div>
+	
+</div>
+<br>
+<br>
+{% endblock %}
+
+<!-- Fim Conteudo -->
