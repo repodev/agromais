@@ -34,7 +34,7 @@ def login():
 			session['username'] = request.form['email'] #session global
 			return redirect(url_for('index'))
 		else:
-			erro='Email ou senha incorretos, tente novamente!'			
+			erro='Email ou senha incorretos, tente novamente!!'			
 	
 	return render_template('login.html', error=erro)
 
