@@ -5,3 +5,4 @@ class ConfigProducao(Config):
 
 class ConfigDev(Config):
     DEBUG = True
+    SECRET_KEY = 'agr0m4isnUnc4'

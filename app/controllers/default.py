@@ -1,22 +1,47 @@
-from flask import render_template,request,abort
+from flask import render_template,request,abort,redirect,url_for,session
 from app import app
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
-from app.models.tables import inserir_perfil
+from app.models.tables import inserir_perfil,verifica_cadastro
+import hashlib
 
 @app.route("/")
 def index():
+	logado=None
 	cod=[1,2,3,4,5,6,7,8]
-	return render_template('index.html',cods=cod)
+
+	if('username' in session):
+		logado = session['username']
+
+
+	return render_template('index.html',cods=cod,logado=logado)
 
 @app.route("/registro/")
 def registro():
 	return render_template('registrar.html')
 
-@app.route("/login/")
-def login():
-	return render_template('login.html')
 
+@app.route("/login/",methods=['GET','POST'])
+def login():
+	erro = None
+	if(request.method == 'POST'):
+		perfil = Perfil()
+		perfil.setEmail(request.form['email'])
+		perfil.setSenha(request.form['senha'])
+
+		logi=verifica_cadastro(perfil.getEmail(),perfil.getSenha())
+		if(logi):
+			session['username'] = request.form['email'] #session global
+			return redirect(url_for('index'))
+		else:
+			erro='Email ou senha incorretos, tente novamente!'			
+	
+	return render_template('login.html', error=erro)
+
+@app.route("/logout")
+def logout():
+	session.pop('username',None)
+	return redirect(url_for('index'))
 
 @app.route("/perfil/<int:produtor_id>/")
 def perfil(produtor_id):
