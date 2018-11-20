@@ -14,11 +14,12 @@ def index():
 		logado = session['username']
 
 
-	return render_template('index.html',cods=cod,logado=logado)
+	return render_template('index.html',cods=cod,logado=logado, footer=True)
 
 @app.route("/registro/")
 def registro():
-	return render_template('registrar.html')
+	return render_template('registrar.html', footer=True)
+
 
 
 @app.route("/login/",methods=['GET','POST'])
@@ -43,12 +44,18 @@ def logout():
 	session.pop('username',None)
 	return redirect(url_for('index'))
 
+@app.route("/recuperar")
+def recuperar_conta():
+	return render_template('recuperarsenha.html')
+
 @app.route("/perfil/<int:produtor_id>/")
 def perfil(produtor_id):
 	if produtor_id in [1,2,3,4,5,6,7,8]:
 		return render_template('produtor.html', id=produtor_id)
 	else:
 		return "Este produtor não existe"
+
+
 
 
 @app.route("/sobre/")

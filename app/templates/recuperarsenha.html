@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-	<title>AGRO+</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
- 	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style-index.css">
-  <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+<!--Extend conteudo do base html-->
+{% extends "base.html" %}
 
+<!--Inicio Head -->
+{% block title %}Registro - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+
+{{ super() }}
 
 	<script type="text/javascript">
 		function goFocus(elementID){
@@ -26,9 +16,10 @@
 	}
 	</script>
 
-</head>
-<body onload="goFocus('email')">
+{% endblock %}
 
+<body onload="goFocus('email')">
+{% block content %}
 <div class=" pure-g mt-3">
 
   <div class="pure-u-1 pure-u-lg-1-8"></div>
@@ -49,16 +40,11 @@
             <button class="btn btn-outline-success btncshadow floatr mt-2" type="submit">ENVIAR</button>
           </div>
         </form>
-        <a href="login.html"><button class="btn btn-outline-success mt-1 btncshadow floatl">VOLTAR</button></a>
+        <a href="{{url_for('login')}}"><button class="btn btn-outline-success mt-1 btncshadow floatl">VOLTAR</button></a>
       </div>
     </div>
     		
   </div>
   
-	<div class="footer l-box is-center footp">
-       <span>&copy; 2018 - AGRO+</span>
-  </div>
 </div>
-
-</body>
-</html>
+{% endblock %}

@@ -29,9 +29,18 @@
 
 <br><br>
 
-<div class="footer l-box is-center footd footp" >
+
+
+{% if (footer) %}
+<div class="footer l-box is-center footd" >
    <span>&copy; 2018 - AGRO+</span>
 </div>
+{% else %}
+
+<div class="footer l-box is-center footd footp" >
+    <span>&copy; 2018 - AGRO+</span>
+ </div>
+{% endif %}
 
 </div>
 </body>
