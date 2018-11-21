@@ -77,6 +77,7 @@ def verifica():
 		perfil.setSenha(request.form['senha'])
 		
 		resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidades(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
+
 		
 		check=request.form['check_loja']
 
@@ -86,6 +87,9 @@ def verifica():
 			#perfil_produtor.setContato_comercial(request.form['contato_loja'])
 			#perfil_produtor.setEndereco_comercial(request.form['endereco_loja'])
 			#inserir_perfil_produtor(perfil.getEmail())
+
+		if(resposta):
+			inserir_perfil_produtor(perfil.getEmail())
 			return 'Perfil produtor inserido'
 		elif(resposta):
 			return 'Perfil inserido'
