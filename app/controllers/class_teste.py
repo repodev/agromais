@@ -55,6 +55,7 @@ class Perfil:
 		return self.__senha
 
 class Perfil_produtor(Perfil):
+	
 
 	def setNome_loja(self,nome_loja):
 		self.nome_loja = nome_loja 

@@ -80,14 +80,14 @@ def verifica():
 
         check=request.form.get('check_loja',False)
 
-        if(resposta and check):
+        if(check and resposta):
             print('aaa')
             perfil_produtor = Perfil_produtor()
             perfil_produtor.setNome_loja(request.form['nome_loja'])
             perfil_produtor.setContato_comercial(request.form['contato_loja'])
             perfil_produtor.setEndereco_comercial(request.form['endereco_loja'])
-            respota1=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil.getEmail())
-            if (respota1):
+            resposta1=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),'lucas@lucas.com')
+            if (resposta1):
                 return 'Perfil produtor inserido'
             else:
                 return'Perfil_produtor não inserido'
