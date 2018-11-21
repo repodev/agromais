@@ -81,6 +81,7 @@ def verifica():
         check=request.form.get('check_loja',False)
 
         if(resposta and check):
+            print('aaa')
             perfil_produtor = Perfil_produtor()
             perfil_produtor.setNome_loja(request.form['nome_loja'])
             perfil_produtor.setContato_comercial(request.form['contato_loja'])
