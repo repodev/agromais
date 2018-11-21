@@ -75,12 +75,18 @@ def verifica():
 		perfil.setCpf(request.form['cpf'])
 		perfil.setEmail(request.form['email'])
 		perfil.setSenha(request.form['senha'])
+
+		perfil_produtor = Perfil_produtor()
+		
 		
 		resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidades(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
-		return resposta
-
-
-
+		if(resposta and ):
+			inserir_perfil_produtor(perfil.getEmail())
+			return 'Perfil produtor inserido'
+		elif(resposta):
+			return 'Perfil inserido'
+		else:
+			return 'Erro'
 
 
 
