@@ -2,7 +2,7 @@ from flask import render_template,request,abort,redirect,url_for,session
 from app import app
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
-from app.models.tables import inserir_perfil,verifica_cadastro
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor
 import hashlib
 
 @app.route("/")
@@ -75,13 +75,17 @@ def verifica():
 		perfil.setCpf(request.form['cpf'])
 		perfil.setEmail(request.form['email'])
 		perfil.setSenha(request.form['senha'])
-
-		perfil_produtor = Perfil_produtor()
-		
 		
 		resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidades(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
-		if(resposta and ):
-			inserir_perfil_produtor(perfil.getEmail())
+		
+		check=request.form['check_loja']
+
+		if(resposta and check):
+			#perfil_produtor = Perfil_produtor()
+			#perfil_produtor.setNome_loja(request.form['nome_loja'])
+			#perfil_produtor.setContato_comercial(request.form['contato_loja'])
+			#perfil_produtor.setEndereco_comercial(request.form['endereco_loja'])
+			#inserir_perfil_produtor(perfil.getEmail())
 			return 'Perfil produtor inserido'
 		elif(resposta):
 			return 'Perfil inserido'
