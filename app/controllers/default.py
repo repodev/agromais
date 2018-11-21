@@ -80,7 +80,7 @@ def verifica():
 		
 		
 		resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidades(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
-		if(resposta and ):
+		if(resposta):
 			inserir_perfil_produtor(perfil.getEmail())
 			return 'Perfil produtor inserido'
 		elif(resposta):
