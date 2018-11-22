@@ -65,37 +65,24 @@ def sobre():
 @app.route("/verifica_registro",methods=['GET','POST'])
 def verifica():
     if(request.method == 'POST'):
-        perfil = Perfil()
-        perfil.setNome (request.form['nome'])
-        perfil.setSobrenome (request.form['sobrenome'])
-        perfil.setContato(request.form['contato'])
-        perfil.setCidades(request.form['cidades'])
-        perfil.setBairro(request.form['bairro'])
-        perfil.setEndereco(request.form['endereco'])
-        perfil.setCpf(request.form['cpf'])
-        perfil.setEmail(request.form['email'])
-        perfil.setSenha(request.form['senha'])
-        
-        resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidades(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
 
         check=request.form.get('check_loja',False)
 
-        if(check and resposta):
-            print('aaa')
-            perfil_produtor = Perfil_produtor()
-            perfil_produtor.setNome_loja(request.form['nome_loja'])
-            perfil_produtor.setContato_comercial(request.form['contato_loja'])
-            perfil_produtor.setEndereco_comercial(request.form['endereco_loja'])
+        if(not check):
+            perfil = Perfil(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'])
+            
+            resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidades(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
+            if (resposta1):
+               return 'Perfil inserido'
+            else:
+               return'Perfil não inserido'
+        else:
+            perfil_produtor = Perfil_produtor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_loja'],request.form['endereco_loja'])
             resposta1=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),'lucas@lucas.com')
             if (resposta1):
                 return 'Perfil produtor inserido'
             else:
-                return'Perfil_produtor não inserido'
-        elif(resposta):
-            return 'Perfil inserido'
-        else:
-            return 'Perfil não inserido'
-
+                return'Perfil produtor não inserido'
 
 
 

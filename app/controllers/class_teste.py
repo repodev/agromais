@@ -1,79 +1,56 @@
 class Perfil:
-	#SETS
-	def setNome(self,nome):
-		self.__nome = nome
+	def __int__(nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha):
+		self.nome = nome
+		self.sobrenome = sobrenome
+		self.cidades = cidades
+		self.bairro = bairro
+		self.endereco = endereco
+		self.cpf = cpf
+		self.email = email
+		self.senha = senha
 
-	def setSobrenome(self,sobrenome):
-		self.__sobrenome = sobrenome
-
-	def setContato(self,contato):
-		self.__contato = contato
-
-	def setCidades(self,cidades):
-		self.__cidades = cidades
-
-	def setBairro(self,bairro):
-		self.__bairro = bairro
-
-	def setEndereco(self,endereco):
-		self.__endereco = endereco
-
-	def setCpf(self,cpf):
-		self.__cpf = cpf
-
-	def setEmail(self,email):
-		self.__email = email
-
-	def setSenha(self,senha):
-		self.__senha = senha
 	#GETS
 	def getNome(self):
-		return self.__nome
+		return self.nome
 
 	def getSobrenome(self):
-		return self.__sobrenome
+		return self.sobrenome
 
 	def getContato(self):
-		return self.__contato
+		return self.contato
 
 	def getCidades(self):
-		return self.__cidades
+		return self.cidades
 
 	def getBairro(self):
-		return self.__bairro
+		return self.bairro
 
 	def getEndereco(self):
-		return self.__endereco
+		return self.endereco
 
 	def getCpf(self):
-		return self.__cpf
+		return self.cpf
 
 	def getEmail(self):
-		return self.__email
+		return self.email
 
 	def getSenha(self):
-		return self.__senha
+		return self.senha
 
 class Perfil_produtor(Perfil):
-	
 
-	def setNome_loja(self,nome_loja):
-		self.nome_loja = nome_loja 
-
-	def setDescricao_produtor(self,descricao_comercial):
-		self.descricao_produtor = descricao_comercial
-
-	def setContato_comercial(self,contato_comercial):
+	def __int__(self,nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha,nome_loja,contato_comercial,endereco_comercial):
+		super().__init__(nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha)
+		self.nome_loja = nome_loja
+		#self.descricao_produtor = descricao_produtor
 		self.contato_comercial = contato_comercial
-
-	def setEndereco_comercial(self,endereco_comercial):
 		self.endereco_comercial = endereco_comercial
 
 	def getNome_loja(self):
 		return self.nome_loja
 
-	def getDescricao_produtor(self):
-		return self.descricao_produtor
+	#def getDescricao_produtor(self):
+		#return self.descricao_produtor
 
 	def getContato_comercial(self):
 		return self.contato_comercial
