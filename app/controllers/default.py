@@ -72,7 +72,7 @@ def verifica():
             perfil = Perfil(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'])
             
             resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidades(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
-            if (resposta1):
+            if (resposta):
                return 'Perfil inserido'
             else:
                return'Perfil não inserido'
