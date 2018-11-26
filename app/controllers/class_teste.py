@@ -1,21 +1,36 @@
-class Perfil:
-	def __int__(nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha):
+class User(object):
+	def __init__(self,nome,sobrenome,email,senha,cpf):
 		self.nome = nome
 		self.sobrenome = sobrenome
-		self.cidades = cidades
-		self.bairro = bairro
-		self.endereco = endereco
-		self.cpf = cpf
 		self.email = email
 		self.senha = senha
-
-	#GETS
+		self.cpf = cpf
+	
 	def getNome(self):
 		return self.nome
 
 	def getSobrenome(self):
 		return self.sobrenome
 
+	def getCpf(self):
+		return self.cpf
+
+	def getEmail(self):
+		return self.email
+
+	def getSenha(self):
+		return self.senha
+
+class PerfilComprador(User):
+	def __init__(self,nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha):
+		super().__init__(nome,sobrenome,email,senha,cpf)
+		self.contato = contato
+		self.cidades = cidades
+		self.bairro = bairro
+		self.endereco = endereco		
+
+	#GETS
+	
 	def getContato(self):
 		return self.contato
 
@@ -28,18 +43,10 @@ class Perfil:
 	def getEndereco(self):
 		return self.endereco
 
-	def getCpf(self):
-		return self.cpf
 
-	def getEmail(self):
-		return self.email
+class PerfilVendedor(PerfilComprador):
 
-	def getSenha(self):
-		return self.senha
-
-class Perfil_produtor(Perfil):
-
-	def __int__(self,nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha,nome_loja,contato_comercial,endereco_comercial):
+	def __init__(self,nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha,nome_loja,contato_comercial,endereco_comercial):
 		super().__init__(nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha)
 		self.nome_loja = nome_loja
 		#self.descricao_produtor = descricao_produtor

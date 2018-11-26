@@ -69,7 +69,7 @@ def verifica():
         check=request.form.get('check_loja',False)
 
         if(not check):
-            perfil = Perfil(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'])
+            perfil = PerfilComprador(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'])
             
             resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidades(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
             if (resposta):
@@ -77,13 +77,13 @@ def verifica():
             else:
                return'Perfil não inserido'
         else:
-            perfil_produtor = Perfil_produtor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_loja'],request.form['endereco_loja'])
+            perfil_produtor = PerfilVendedor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_loja'],request.form['endereco_loja'])
             resposta1=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),'lucas@lucas.com')
             if (resposta1):
                 return 'Perfil produtor inserido'
             else:
                 return'Perfil produtor não inserido'
-
+    return "Hey man"
 
 
 @app.errorhandler(404)
