@@ -29,11 +29,14 @@ def login():
 
         perfil = Login(request.form['email'],request.form['senha'])
         
-        resposta=verifica_cadastro(perfil.getEmail(),perfil.getSenha())
-        
-        if(resposta):
-            session['username'] = request.form['email'] #session global
+        resposta = verifica_cadastro(perfil.getEmail(),perfil.getSenha())
+
+        if(resposta[0] and resposta[1] and resposta[2]==Null):
+            session['tipo_conta'] = 'comprador' #session global
             return redirect(url_for('index'))
+        elif(resposta[0] and resposta[1] and resposta[2]!=Null):
+            session['tipo_conta'] = 'produtor' #session global
+            return redirect(url_for('index'))       
         else:
             erro='Email ou senha incorretos, tente novamente!!'         
     
@@ -78,8 +81,11 @@ def verifica():
                return'Perfil não inserido'
         else:
             perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_loja'],request.form['endereco_loja'])
-            resposta=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),'lucas@lucas.com')
-            if (resposta):
+            
+            resposta1=inserir_perfil(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidades(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha())
+            
+            resposta2=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil.getEmail())
+            if (resposta1 and resposta2):
                 return 'Perfil produtor inserido'
             else:
                 return'Perfil produtor não inserido'

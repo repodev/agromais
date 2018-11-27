@@ -67,10 +67,10 @@ class PerfilProdutor(PerfilComprador):
 
 
 class Login():
-	def __init__(self,email,senha):
+	def __init__(self,email,senha):#tipoConta
 		self.email = email
 		self.senha = senha
-		self.tipo = tipo
+		#self.tipoConta = tipoConta
 
 	def getEmail(self):
 		return self.email
@@ -78,5 +78,5 @@ class Login():
 	def getSenha(self):
 		return self.senha
 
-	def getTipo(self):
-		return self.tipo
+	#def getTipoConta(self):
+		#return self.tipoConta
