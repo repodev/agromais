@@ -1,4 +1,4 @@
-class User(object):
+class Perfil(object):
 	def __init__(self,nome,sobrenome,email,senha,cpf):
 		self.nome = nome
 		self.sobrenome = sobrenome
@@ -12,16 +12,16 @@ class User(object):
 	def getSobrenome(self):
 		return self.sobrenome
 
-	def getCpf(self):
-		return self.cpf
-
 	def getEmail(self):
 		return self.email
 
 	def getSenha(self):
 		return self.senha
 
-class PerfilComprador(User):
+	def getCpf(self):
+		return self.cpf
+
+class PerfilComprador(Perfil):
 	def __init__(self,nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha):
 		super().__init__(nome,sobrenome,email,senha,cpf)
 		self.contato = contato
@@ -44,7 +44,7 @@ class PerfilComprador(User):
 		return self.endereco
 
 
-class PerfilVendedor(PerfilComprador):
+class PerfilProdutor(PerfilComprador):
 
 	def __init__(self,nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha,nome_loja,contato_comercial,endereco_comercial):
 		super().__init__(nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha)
@@ -64,3 +64,19 @@ class PerfilVendedor(PerfilComprador):
 
 	def getEndereco_comercial(self):
 		return self.endereco_comercial
+
+
+class Login():
+	def __init__(self,email,senha):
+		self.email = email
+		self.senha = senha
+		self.tipo = tipo
+
+	def getEmail(self):
+		return self.email
+
+	def getSenha(self):
+		return self.senha
+
+	def getTipo(self):
+		return self.tipo

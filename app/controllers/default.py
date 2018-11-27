@@ -26,12 +26,12 @@ def registro():
 def login():
     erro = None
     if(request.method == 'POST'):
-        perfil = Perfil()
-        perfil.setEmail(request.form['email'])
-        perfil.setSenha(request.form['senha'])
 
-        logi=verifica_cadastro(perfil.getEmail(),perfil.getSenha())
-        if(logi):
+        perfil = Login(request.form['email'],request.form['senha'])
+        
+        resposta=verifica_cadastro(perfil.getEmail(),perfil.getSenha())
+        
+        if(resposta):
             session['username'] = request.form['email'] #session global
             return redirect(url_for('index'))
         else:
@@ -77,9 +77,9 @@ def verifica():
             else:
                return'Perfil não inserido'
         else:
-            perfil_produtor = PerfilVendedor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_loja'],request.form['endereco_loja'])
-            resposta1=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),'lucas@lucas.com')
-            if (resposta1):
+            perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_loja'],request.form['endereco_loja'])
+            resposta=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),'lucas@lucas.com')
+            if (resposta):
                 return 'Perfil produtor inserido'
             else:
                 return'Perfil produtor não inserido'
