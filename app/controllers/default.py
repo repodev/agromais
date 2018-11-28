@@ -1,4 +1,4 @@
-from flask import render_template,request,abort,redirect,url_for,session
+from flask import render_template,request,abort,redirect,url_for,session,flash
 from app import app
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
@@ -10,30 +10,32 @@ def index():
     logado=None
     cod=[1,2,3,4,5,6,7,8]
 
-    if('username' in session):
-        logado = session['username']
-
-
+    if('tipo_conta' in session):
+        logado = session['tipo_conta']
     return render_template('index.html',cods=cod,logado=logado, footer=True)
 
 @app.route("/registro/",methods=['GET','POST'])
 def registro():
     erro = None
-    if(request.method == 'POST'):
 
+    if(request.method == 'POST'):
         check=request.form.get('check_loja',False)
 
         if(not check):
+
             perfil = PerfilComprador(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'])
             
             resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidade(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
+
             if (resposta=='Duplicado'):
                 erro = "Já existe um perfil com essas informações!"
                 return render_template('registrar.html', footer=True,error=erro)
             elif (resposta=='Aceito'):
-                return 'Perfil inserido'
+                flash('Cadastro realizado com sucesso.')
+                return redirect(url_for('index'))
             else:
-               return'Perfil não inserido'
+                erro = "Erro ao Cadastrar seu perfil, por favor tente novamente."
+                return render_template('registrar.html', footer=True,error=erro)
         else:
             perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'])
             
@@ -59,22 +61,30 @@ def login():
         resposta = verifica_cadastro(perfil.getEmail(),perfil.getSenha())
         print('------------------',resposta)
         id_produtor = resposta
+
+        #login caso seja comprador
         if(id_produtor == None):
             session['tipo_conta'] = 'comprador' #session global
-            print("Sou comprador")
+            flash('Login realizado com sucesso, Vamos as compras?')
             return redirect(url_for('index'))
+        
+        #login caso seja produtor
         elif(id_produtor != False):
             session['tipo_conta'] = 'produtor' #session global
-            print("Sou vendedor")
-            return redirect(url_for('index'))       
+            flash('Login realizado com sucesso, Vamos vender?')
+            return redirect(url_for('index'))
+
+        #Caso aconteça algum erro ou não tenha cadastro  
         else:
             erro='Email ou senha incorretos, tente novamente!!'         
     
     return render_template('login.html', error=erro)
 
+
+
 @app.route("/logout")
 def logout():
-    session.pop('username',None)
+    session.pop('tipo_conta',None)
     return redirect(url_for('index'))
 
 @app.route("/recuperar")
