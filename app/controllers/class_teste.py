@@ -22,10 +22,10 @@ class Perfil(object):
 		return self.cpf
 
 class PerfilComprador(Perfil):
-	def __init__(self,nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha):
+	def __init__(self,nome,sobrenome,contato,cidade,bairro,endereco,cpf,email,senha):
 		super().__init__(nome,sobrenome,email,senha,cpf)
 		self.contato = contato
-		self.cidades = cidades
+		self.cidade = cidade
 		self.bairro = bairro
 		self.endereco = endereco		
 
@@ -34,8 +34,8 @@ class PerfilComprador(Perfil):
 	def getContato(self):
 		return self.contato
 
-	def getCidades(self):
-		return self.cidades
+	def getCidade(self):
+		return self.cidade
 
 	def getBairro(self):
 		return self.bairro
@@ -46,18 +46,18 @@ class PerfilComprador(Perfil):
 
 class PerfilProdutor(PerfilComprador):
 
-	def __init__(self,nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha,nome_loja,contato_comercial,endereco_comercial):
-		super().__init__(nome,sobrenome,contato,cidades,bairro,endereco,cpf,email,senha)
+	def __init__(self,nome,sobrenome,contato,cidade,bairro,endereco,cpf,email,senha,nome_loja,contato_comercial,endereco_comercial,descricao_loja):
+		super().__init__(nome,sobrenome,contato,cidade,bairro,endereco,cpf,email,senha)
 		self.nome_loja = nome_loja
-		#self.descricao_produtor = descricao_produtor
 		self.contato_comercial = contato_comercial
 		self.endereco_comercial = endereco_comercial
+		self.descricao_loja = descricao_loja
 
 	def getNome_loja(self):
 		return self.nome_loja
 
-	#def getDescricao_produtor(self):
-		#return self.descricao_produtor
+	def getDescricao_loja(self):
+		return self.descricao_loja
 
 	def getContato_comercial(self):
 		return self.contato_comercial

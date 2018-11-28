@@ -16,9 +16,36 @@ def index():
 
     return render_template('index.html',cods=cod,logado=logado, footer=True)
 
-@app.route("/registro/")
+@app.route("/registro/",methods=['GET','POST'])
 def registro():
-    return render_template('registrar.html', footer=True)
+    erro = None
+    if(request.method == 'POST'):
+
+        check=request.form.get('check_loja',False)
+
+        if(not check):
+            perfil = PerfilComprador(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'])
+            
+            resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidade(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
+            if (resposta=='Duplicado'):
+                erro = "Já existe um perfil com essas informações!"
+                return render_template('registrar.html', footer=True,error=erro)
+            elif (resposta=='Aceito'):
+                return 'Perfil inserido'
+            else:
+               return'Perfil não inserido'
+        else:
+            perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'])
+            
+            resposta1=inserir_perfil(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha())
+            
+            resposta2=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja(),perfil_produtor.getEmail())
+            if (resposta1 and resposta2):
+                return 'Perfil produtor inserido'
+            else:
+                return'Perfil produtor não inserido'
+    
+    return render_template('registrar.html', footer=True,error=erro)
 
 
 
@@ -30,12 +57,15 @@ def login():
         perfil = Login(request.form['email'],request.form['senha'])
         
         resposta = verifica_cadastro(perfil.getEmail(),perfil.getSenha())
-
-        if(resposta[0] and resposta[1] and resposta[2]==Null):
+        print('------------------',resposta)
+        id_produtor = resposta
+        if(id_produtor == None):
             session['tipo_conta'] = 'comprador' #session global
+            print("Sou comprador")
             return redirect(url_for('index'))
-        elif(resposta[0] and resposta[1] and resposta[2]!=Null):
+        elif(id_produtor != False):
             session['tipo_conta'] = 'produtor' #session global
+            print("Sou vendedor")
             return redirect(url_for('index'))       
         else:
             erro='Email ou senha incorretos, tente novamente!!'         
@@ -64,32 +94,6 @@ def perfil(produtor_id):
 @app.route("/sobre/")
 def sobre():
     return render_template('start.html')
-
-@app.route("/verifica_registro",methods=['GET','POST'])
-def verifica():
-    if(request.method == 'POST'):
-
-        check=request.form.get('check_loja',False)
-
-        if(not check):
-            perfil = PerfilComprador(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'])
-            
-            resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidades(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
-            if (resposta):
-               return 'Perfil inserido'
-            else:
-               return'Perfil não inserido'
-        else:
-            perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidades'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_loja'],request.form['endereco_loja'])
-            
-            resposta1=inserir_perfil(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidades(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha())
-            
-            resposta2=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil.getEmail())
-            if (resposta1 and resposta2):
-                return 'Perfil produtor inserido'
-            else:
-                return'Perfil produtor não inserido'
-    return "Hey man"
 
 
 @app.errorhandler(404)

@@ -131,7 +131,7 @@
 
 		<section>
 			<div class="content pure-u-1 pure-u-md-4-4 ml-3">
-			<form action="/verifica_registro" method="POST">
+			<form action="" method="post">
 				<div class="form-group">
 				    <input type="text" name="nome" class="form-control" id="nome" required="required" placeholder="Nome">
 				</div>
@@ -144,7 +144,7 @@
 				<div class="input-group mt-3">
 				  <div class="input-group-prepend">
 				    <div class="form-group">
-					  <select class="form-control btn-outline-success" name="cidades" id="sel1">
+					  <select class="form-control btn-outline-success" id="sel1" name="cidade">
 					    <option value="crato">Crato</option>
 					    <option value="juazeiro do norte">Juazeiro do Norte</option>
 					    <option value="barbalha">Barbalha</option>
@@ -153,7 +153,7 @@
 					  </select>
 					</div>
 				  </div>
-				  <input type="text" name="bairro" class="form-control" id="bairro" required="required" placeholder="Bairro">
+				  <input type="text" name="bairro" class="form-control" id="bairro" required="required"placeholder="Bairro">
 				</div>
 				<div class="form-group">
 					<input type="text" name="endereco" class="form-control" id="endereco" required="required"placeholder="Endereço">
@@ -165,29 +165,33 @@
 					   <input type="email" name="email" class="form-control" required="required" id="email" placeholder="Email">
 				</div>
 				<div class="form-group">
-					<input type="password"  class="form-control" required="required" id="senha" placeholder="Senha">
+					<input type="password" class="form-control" required="required" id="senha" placeholder="Senha">
 				</div>
 				<div class="form-group">
 					<input type="password" name="senha" class="form-control" required="required" id="senha" placeholder="Confirmar senha">
 				</div>
 				<div class="form-check">
 				  <label class="form-check-label labelblack">
-				    <input type="checkbox" class="form-check-input" name="check_loja" value="True" onclick="Mudarestado('mp')">Produtor.
+				    <input type="checkbox" class="form-check-input" name="check_loja" onclick="Mudarestado('mp')">Produtor.
 				  </label>
 				  <div class="form-group mt-2" id="mp" style="display: none;">
 				  	<div class="form-group">
 				    	<input type="text" name="nome_loja" class="form-control" id="nomeloja"  placeholder="Nome Loja Física">
 					</div>
 				  	<div class="form-group">
-						<input type="text" name="contato_loja" class="form-control" maxlength="13" OnKeyPress="formatar('##-#####-####', this)" value="" id="contatocomercial" placeholder="Contato Comercial" > 
+						<input type="text" name="contato_comercial" class="form-control" maxlength="13" OnKeyPress="formatar('##-#####-####', this)"  value="" id="contatocomercial" placeholder="Contato Comercial" > 
 					</div>
 					<div class="form-group">
-						<input type="text" name="endereco_loja" class="form-control" id="enderecoloja"  placeholder="Endereço Loja Física">
+						<input type="text" name="endereco_loja" class="form-control" id="enderecoloja" placeholder="Endereço Loja Física">
 					</div>
 					<div class="form-group custom-file">
 						<input type="file" class="custom-file-input" name="fileloja" id="customFile">
 						<label class="custom-file-label" for="customFile">Foto da loja</label>
 					</div>
+					<div class="form-group colorb">
+					  <label for="desc" class="colorb content-subhead">Descrição:</label>
+					  <textarea name="descricao_loja" class="form-control noresize" rows="5" id="desc"></textarea>
+					</div>		
 				  </div>
 				</div>
 				<div class="form-group form-check">
@@ -201,7 +205,5 @@
 		</section>
 		
 	</div>
-</div>
-
-
+</div>	
 {% endblock %}
