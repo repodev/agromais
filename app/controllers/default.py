@@ -28,10 +28,8 @@ def cadastra_produto():
     b_cadastrar = None
     if('tipo_conta' in session):
         logado = session['tipo_conta']
-
-
-    return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
-
+        return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
+    return abort(404)
 
 @app.route("/valida_registro",methods=['GET','POST'])
 def valida_registro():
@@ -82,9 +80,7 @@ def login():
 
         perfil = Login(request.form['email'],request.form['senha'])
         
-        resposta = verifica_cadastro(perfil.getEmail(),perfil.getSenha())
-        print('------------------',resposta)
-        id_produtor = resposta
+        id_produtor = verifica_cadastro(perfil.getEmail(),perfil.getSenha())
 
         #login caso seja comprador
         if(id_produtor == None):
