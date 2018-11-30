@@ -50,16 +50,20 @@ def valida_registro():
         else:
             perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'])
             
-            resposta1=inserir_perfil(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha())
+            resposta_perfil=inserir_perfil(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha())
             
-            resposta2=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja(),perfil_produtor.getEmail())
+            
 
-            if (resposta1 and resposta2):
+            if (resposta_perfil == 'Aceito'):
+                inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja(),perfil_produtor.getEmail())    
                 flash('Cadastro realizado com sucesso.')
                 url = "/"
                 return jsonify({'status':'1','url':url})
-            else:
+            elif(resposta_perfil == 'Duplicado' ):
                 erro = "Já existe um perfil com essas informações! verifique os campos (email, cpf, nome loja)"
+                return jsonify({'status':'2','erro':erro})
+            else:
+                erro = "Erro ao inserir o perfil, tente novamente!"
                 return jsonify({'status':'2','erro':erro})
 
 @app.route("/login/",methods=['GET','POST'])
