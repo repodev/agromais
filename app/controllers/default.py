@@ -50,16 +50,13 @@ def valida_registro():
         else:
             perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'])
             
-            resposta_perfil=inserir_perfil(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha())
+            resposta_perfil_produtor=inserir_perfil_produtor(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha(),perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja())    
             
-            
-
-            if (resposta_perfil == 'Aceito'):
-                inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja(),perfil_produtor.getEmail())    
+            if (resposta_perfil_produtor == 'Aceito'):
                 flash('Cadastro realizado com sucesso.')
                 url = "/"
                 return jsonify({'status':'1','url':url})
-            elif(resposta_perfil == 'Duplicado' ):
+            elif(resposta_perfil_produtor == 'Duplicado' ):
                 erro = "Já existe um perfil com essas informações! verifique os campos (email, cpf, nome loja)"
                 return jsonify({'status':'2','erro':erro})
             else:
