@@ -131,12 +131,13 @@
 
 		<section>
 			<div class="content pure-u-1 pure-u-md-4-4 ml-3">
-			<form action="" method="post">
+					<div class="result"></div>
+			<form id="register-form" method="post">
 				<div class="form-group">
 				    <input type="text" name="nome" class="form-control" id="nome" required="required" placeholder="Nome">
 				</div>
 				<div class="form-group">
-					<input type="text" name="sobrenome" class="form-control" id="sobrenome" required="required"placeholder="Sobrenome">
+					<input type="text" name="sobrenome" class="form-control" id="sobrenome" required="required" placeholder="Sobrenome">
 				</div>
 				<div class="form-group">
 					<input type="text" name="contato" class="form-control" maxlength="13" OnKeyPress="formatar('##-#####-####', this)" required="required" value="" id="contato" placeholder="Contato" > 
@@ -165,7 +166,7 @@
 					   <input type="email" name="email" class="form-control" required="required" id="email" placeholder="Email">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" required="required" id="senha" placeholder="Senha">
+					<input type="password" class="form-control" required="required" id="senhaum" placeholder="Senha">
 				</div>
 				<div class="form-group">
 					<input type="password" name="senha" class="form-control" required="required" id="senha" placeholder="Confirmar senha">
@@ -199,11 +200,50 @@
 						<input class="form-check-input" name="check" id="check" value="false" type="checkbox" style=""> Aceitar <a href="termos.html">termos de Usuário.</a>
 					</label>
 				</div>
-				<button type="submit" class="btn btn-success floatr marginb5 cshadow">REGISTRAR</button>
+				<button type="submit" id="teste" class="btn btn-success floatr marginb5 cshadow">REGISTRAR</button>
 			</form>
 		</div>
 		</section>
 		
 	</div>
-</div>	
+	
+	
+
+</div>
+<script>
+	$(document).ready(function(){
+
+		function register_form(){
+				$.ajax({
+						url: '/valida_registro',
+						data: $('form').serialize(),
+						type: 'POST',
+						success: function(response) {						
+							if(response.status == '2'){
+								$("div.result").html('<div class="alert alert-danger"><button type="button" class="close">×</button>'+response.erro+'</div>');
+								$("html").animate({ scrollTop: 0 }, 600);
+
+								$('.alert .close').on("click", function(e){
+                $(this).parent().fadeTo(500, 0).slideUp(500);
+             		});
+
+							}else if(response.status == '1'){
+								window.location.replace(response.url)
+							}
+							
+
+						},
+						error: function(error) {
+								console.log(error);
+						}
+				});
+			}
+			$("#register-form").submit(function(event){
+				event.preventDefault();
+				register_form()
+
+			});
+		});
+
+	</script>
 {% endblock %}

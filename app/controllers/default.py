@@ -1,4 +1,4 @@
-from flask import render_template,request,abort,redirect,url_for,session,flash
+from flask import render_template,request,abort,redirect,url_for,session,flash,jsonify
 from app import app
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
@@ -17,7 +17,13 @@ def index():
 @app.route("/registro/",methods=['GET','POST'])
 def registro():
     erro = None
+    return render_template('registrar.html', footer=True,error=erro)
 
+
+
+@app.route("/valida_registro",methods=['GET','POST'])
+def valida_registro():
+    erro = None
     if(request.method == 'POST'):
         check=request.form.get('check_loja',False)
 
@@ -26,30 +32,35 @@ def registro():
             perfil = PerfilComprador(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'])
             
             resposta=inserir_perfil(perfil.getNome(),perfil.getSobrenome(),perfil.getContato(),perfil.getCidade(),perfil.getBairro(),perfil.getEndereco(),perfil.getCpf(),perfil.getEmail(),perfil.getSenha())
+            
+            print(resposta)
 
             if (resposta=='Duplicado'):
-                erro = "Já existe um perfil com essas informações!"
-                return render_template('registrar.html', footer=True,error=erro)
+                erro = "Já existe um perfil com essas informações! verifique os campos (email,cpf)"
+                return jsonify({'status':'2','erro':erro})
+
             elif (resposta=='Aceito'):
                 flash('Cadastro realizado com sucesso.')
-                return redirect(url_for('index'))
+                url = "/"
+                return jsonify({'status':'1','url':url})
             else:
+
                 erro = "Erro ao Cadastrar seu perfil, por favor tente novamente."
-                return render_template('registrar.html', footer=True,error=erro)
+                return jsonify([{'status':'NO'},{'erro':erro}])
         else:
             perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'])
             
             resposta1=inserir_perfil(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha())
             
             resposta2=inserir_perfil_produtor(perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja(),perfil_produtor.getEmail())
+
             if (resposta1 and resposta2):
-                return 'Perfil produtor inserido'
+                flash('Cadastro realizado com sucesso.')
+                url = "/"
+                return jsonify({'status':'1','url':url})
             else:
-                return'Perfil produtor não inserido'
-    
-    return render_template('registrar.html', footer=True,error=erro)
-
-
+                erro = "Já existe um perfil com essas informações! verifique os campos (email, cpf, nome loja)"
+                return jsonify({'status':'2','erro':erro})
 
 @app.route("/login/",methods=['GET','POST'])
 def login():
