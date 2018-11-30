@@ -21,6 +21,16 @@ def registro():
 
 
 
+@app.route("/cadastra_produto/", methods=['GET','POST'])
+def cadastra_produto():
+    logado=None
+    #variavel para ocultar botão (mais) na pagina do cadastro do produto
+    b_cadastrar = None
+    if('tipo_conta' in session):
+        logado = session['tipo_conta']
+    return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
+
+
 @app.route("/valida_registro",methods=['GET','POST'])
 def valida_registro():
     erro = None

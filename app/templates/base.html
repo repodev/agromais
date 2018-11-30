@@ -151,14 +151,11 @@
 {% endblock %}
 
 
-
-
 {% endblock %}
 
-{% if (logado == 'produtor') %}
+{% if (logado == 'produtor' and ocultar != None) %}
 <div class="float" >
-<a href="{{ url_for('login')}}" class=" cshadow btncshadow" ><i class="fa fa-plus my-float"></i></a>
-
+<a href="{{ url_for('cadastra_produto')}}" class=" cshadow btncshadow" ><i class="fa fa-plus my-float"></i></a>
 
 </div>
 {% endif %}
