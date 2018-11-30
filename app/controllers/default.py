@@ -2,7 +2,7 @@ from flask import render_template,request,abort,redirect,url_for,session,flash,j
 from app import app
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
-from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id
 import hashlib
 
 @app.route("/")
@@ -21,13 +21,15 @@ def registro():
 
 
 
-@app.route("/cadastra_produto/", methods=['GET','POST'])
+@app.route("/registra_produto/", methods=['GET','POST'])
 def cadastra_produto():
     logado=None
     #variavel para ocultar botão (mais) na pagina do cadastro do produto
     b_cadastrar = None
     if('tipo_conta' in session):
         logado = session['tipo_conta']
+
+
     return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
 
 
@@ -86,13 +88,16 @@ def login():
 
         #login caso seja comprador
         if(id_produtor == None):
-            session['tipo_conta'] = 'comprador' #session global
+            session['tipo_conta'] = 'comprador' #session global <<<-- Tirar depois
+            session['id_perfil'] = recupera_id(request.form['email'])
             flash('Login realizado com sucesso, Vamos as compras?')
             return redirect(url_for('index'))
         
         #login caso seja produtor
         elif(id_produtor != False):
-            session['tipo_conta'] = 'produtor' #session global
+            session['tipo_conta'] = 'produtor' #session global <<<-- Tirar depois
+            session['id_perfil'] = recupera_id(request.form['email']) 
+            session['id_produtor'] = id_produtor
             flash('Login realizado com sucesso, Vamos vender?')
             return redirect(url_for('index'))
 
