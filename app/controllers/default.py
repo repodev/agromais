@@ -1,10 +1,9 @@
 from flask import render_template,request,abort,redirect,url_for,session,flash,jsonify
 from app import app
 from werkzeug.utils import secure_filename
-
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
-from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto
 import hashlib,time,os
 @app.route("/")
 def index():
@@ -18,21 +17,44 @@ def index():
 @app.route("/registro/",methods=['GET','POST'])
 def registro():
     erro = None
-    return render_template('registrar.html', footer=True,error=erro)
+    if('tipo_conta' in session):
+        return abort(404)
+    else:
+        return render_template('registrar.html', footer=True,error=erro)
 
-
-
-@app.route("/registra_produto/", methods=['GET','POST'])
-def cadastra_produto():
+@app.route("/registra_produto/")
+def registra_produto():
     logado=None
     #variavel para ocultar botão (mais) na pagina do cadastro do produto
     b_cadastrar = None
-    if('tipo_conta' in session):
+    if('id_produtor' in session):
+        return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
+    else:
+        return abort(404)
+
+@app.route("/valida_produto", methods=['GET','POST'])
+def valida_produto():
+    erro=None
+    print("-----------",session['id_produtor'])
+    if(request.method == 'POST'):
         logado = session['tipo_conta']
+        id_produtor = session['id_produtor']
+        produto = Produto(request.form['nome'],request.form['categoria'],request.form['subcategoria'],request.form['preco'],request.form['estoque'],request.form['descricao_produto'],id_produtor)
 
+        resposta = inserir_produto(produto.getNome_produto(),produto.getSubcategoria(),produto.getPreco(),produto.getEstoque(),produto.getDescricao_produto(),produto.getId_produtor())
+        if (resposta=='Duplicado'):
+            erro = "Já existe um produto com essas informações!"
+            return jsonify({'status':'2','erro':erro})
 
+        elif (resposta=='Aceito'):
+            flash('Produto cadastrado com sucesso.')
+            url = "/"
+            return jsonify({'status':'1','url':url})
+
+        else:
+            erro = "Erro ao Cadastrar seu produto, por favor tente novamente."
+            return jsonify([{'status':'NO'},{'erro':erro}])
     return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
-
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -89,40 +111,43 @@ def valida_registro():
 @app.route("/login/",methods=['GET','POST'])
 def login():
     erro = None
-    if(request.method == 'POST'):
+    if('tipo_conta' in session):
+        return abort(404)
+    else:    
+        if(request.method == 'POST'):
 
-        perfil = Login(request.form['email'],request.form['senha'])
+            perfil = Login(request.form['email'],request.form['senha'])
+            
+            id_produtor = verifica_cadastro(perfil.getEmail(),perfil.getSenha())
+
+            #login caso seja comprador
+            if(id_produtor == None):
+                session['tipo_conta'] = 'comprador' #session global <<<-- Tirar depois
+                session['id_perfil'] = recupera_id(request.form['email'])
+                flash('Login realizado com sucesso, Vamos as compras?')
+                return redirect(url_for('index'))
+            
+            #login caso seja produtor
+            elif(id_produtor != False):
+                session['tipo_conta'] = 'produtor' #session global <<<-- Tirar depois
+                session['id_perfil'] = recupera_id(request.form['email']) 
+                session['id_produtor'] = id_produtor
+                flash('Login realizado com sucesso, Vamos vender?')
+                return redirect(url_for('index'))
+
+            #Caso aconteça algum erro ou não tenha cadastro  
+            else:
+                erro='Email ou senha incorretos, tente novamente!!'         
         
-        resposta = verifica_cadastro(perfil.getEmail(),perfil.getSenha())
-        print('------------------',resposta)
-        id_produtor = resposta
-
-        #login caso seja comprador
-        if(id_produtor == None):
-            session['tipo_conta'] = 'comprador' #session global <<<-- Tirar depois
-            session['id_perfil'] = recupera_id(request.form['email'])
-            flash('Login realizado com sucesso, Vamos as compras?')
-            return redirect(url_for('index'))
-        
-        #login caso seja produtor
-        elif(id_produtor != False):
-            session['tipo_conta'] = 'produtor' #session global <<<-- Tirar depois
-            session['id_perfil'] = recupera_id(request.form['email']) 
-            session['id_produtor'] = id_produtor
-            flash('Login realizado com sucesso, Vamos vender?')
-            return redirect(url_for('index'))
-
-        #Caso aconteça algum erro ou não tenha cadastro  
-        else:
-            erro='Email ou senha incorretos, tente novamente!!'         
-    
-    return render_template('login.html', error=erro)
+        return render_template('login.html', error=erro)
 
 
 
 @app.route("/logout")
 def logout():
     session.pop('tipo_conta',None)
+    session.pop('id_produtor',None)
+    session.pop('id_perfil',None)
     return redirect(url_for('index'))
 
 @app.route("/recuperar")

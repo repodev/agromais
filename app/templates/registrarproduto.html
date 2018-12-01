@@ -51,13 +51,13 @@
 
 		<section>
 			<div class="content pure-u-1 pure-u-md-4-4 ml-3">
-			<form method="post" action="">
+			<form method="post" id="register-form">
 					<div class="form-group">
 					    <input type="text" name="nome" class="form-control" id="nome" required="required" placeholder="Nome do produto">
 					</div>
 					<div class="form-group">
 					  <label for="sel1" class="content-subhead">Categoria:</label>
-					  <select class="form-control" id="categ">
+					  <select class="form-control" id="categ" name="categoria">
 					    <option value="Artesanais">Artesanais</option>
 					    <option value="Estocáveis">Estocáveis</option>
 					    <option value="Derivados">Derivados</option>
@@ -86,7 +86,7 @@
 					</div>
 					<div class="form-group colorb">
 					  <label for="desc" class="colorb margint2 content-subhead">Descrição:</label>
-					  <textarea class="form-control noresize" rows="5" id="desc"></textarea>
+					  <textarea class="form-control noresize" rows="5" id="desc" name="descricao_produto"></textarea>
 					</div>					
 					<button type="submit" class="btn btn-outline-success floatr marginb5 cshadow">ANUNCIAR</button>
 				</form>
@@ -95,4 +95,42 @@
 		
 	</div>
 </div>	
+<script>
+	$(document).ready(function(){
+
+		function register_form(){
+				$.ajax({
+						url: '/valida_produto',
+						data: $('form').serialize(),
+						type: 'POST',
+						success: function(response) {						
+							if(response.status == '2'){
+								$("div.result").html('<div class="alert alert-danger"><button type="button" class="close">×</button>'+response.erro+'</div>');
+								$("html").animate({ scrollTop: 0 }, 600);
+
+								$('.alert .close').on("click", function(e){
+                $(this).parent().fadeTo(500, 0).slideUp(500);
+             		});
+
+							}else if(response.status == '1'){
+								window.location.replace(response.url)
+							}
+							
+
+						},
+						error: function(error) {
+								console.log(error);
+						}
+				});
+			}
+			$("#register-form").submit(function(event){
+				event.preventDefault();
+				register_form()
+
+			});
+
+  
+
+  
+	</script>
 {% endblock %}
