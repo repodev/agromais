@@ -132,7 +132,7 @@
 		<section>
 			<div class="content pure-u-1 pure-u-md-4-4 ml-3">
 					<div class="result"></div>
-			<form id="register-form" method="post">
+			<form id="register-form" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 				    <input type="text" name="nome" class="form-control" id="nome" required="required" placeholder="Nome">
 				</div>
@@ -186,7 +186,7 @@
 						<input type="text" name="endereco_loja" class="form-control" id="enderecoloja" placeholder="Endereço Loja Física">
 					</div>
 					<div class="form-group custom-file">
-						<input type="file" class="custom-file-input" name="fileloja" id="customFile">
+						<input type="file" class="custom-file-input" name="foto_loja" id="customFile">
 						<label class="custom-file-label" for="customFile">Foto da loja</label>
 					</div>
 					<div class="form-group colorb">
@@ -214,10 +214,14 @@
 	$(document).ready(function(){
 
 		function register_form(){
+			var form_data = new FormData($('#register-form')[0]);
 				$.ajax({
-						url: '/valida_registro',
-						data: $('form').serialize(),
+						url: '/valida_registro',						
 						type: 'POST',
+						data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
 						success: function(response) {						
 							if(response.status == '2'){
 								$("div.result").html('<div class="alert alert-danger"><button type="button" class="close">×</button>'+response.erro+'</div>');
@@ -240,8 +244,9 @@
 			}
 			$("#register-form").submit(function(event){
 				event.preventDefault();
+				
 				register_form()
-
+				
 			});
 
 $('#cpf').mask('000.000.000-00');

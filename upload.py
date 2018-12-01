@@ -9,7 +9,21 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'teste'
 
-
+if('foto_loja' in request.files):
+                file = request.files['foto_loja']
+            else:
+                file = None
+            if file and allowed_file(file.filename):
+                #pega o filename e deixa somente a extensão
+                filename = secure_filename(file.filename).split(".")[1]
+                #gera novo nome de acordo com o timestamp atual
+                gera_nome = hashlib.sha256(str(time.time()).encode()).hexdigest()
+                #cria novo nome cortado o sha256 e concatena com extensão
+                novo_nome = gera_nome[0:20]+"."+filename
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], novo_nome))
+            else:
+                novo_nome = None
+                
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -23,16 +37,16 @@ def index():
             return "not"
         file = request.files['file']
         if file and allowed_file(file.filename):
-            
-
-            filename = secure_filename(file.filename)
-            filename_novo = filename.split(".")[1]
-            gera_tempo = str(time.time())
-            gera_nome = hashlib.sha256(gera_tempo.encode()).hexdigest()
-            novo_nome = gera_nome[0:20]+"."+filename_novo
-            print(novo_nome)
+            #pega o filename e deixa somente a extensão
+            filename = secure_filename(file.filename).split(".")[1]
+            #gera novo nome de acordo com o timestamp atual
+            gera_nome = hashlib.sha256(str(time.time()).encode()).hexdigest()
+            #cria novo nome cortado o sha256 e concatena com extensão
+            novo_nome = gera_nome[0:20]+"."+filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], novo_nome))
             return redirect(url_for('index'))
+        else:
+            return "Extensão não permitida"
             
     return """
     <!doctype html>

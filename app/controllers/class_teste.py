@@ -46,12 +46,13 @@ class PerfilComprador(Perfil):
 
 class PerfilProdutor(PerfilComprador):
 
-	def __init__(self,nome,sobrenome,contato,cidade,bairro,endereco,cpf,email,senha,nome_loja,contato_comercial,endereco_comercial,descricao_loja):
+	def __init__(self,nome,sobrenome,contato,cidade,bairro,endereco,cpf,email,senha,nome_loja,contato_comercial,endereco_comercial,descricao_loja,foto_loja):
 		super().__init__(nome,sobrenome,contato,cidade,bairro,endereco,cpf,email,senha)
 		self.nome_loja = nome_loja
 		self.contato_comercial = contato_comercial
 		self.endereco_comercial = endereco_comercial
 		self.descricao_loja = descricao_loja
+		self.foto_loja = foto_loja
 
 	def getNome_loja(self):
 		return self.nome_loja
@@ -64,6 +65,9 @@ class PerfilProdutor(PerfilComprador):
 
 	def getEndereco_comercial(self):
 		return self.endereco_comercial
+
+	def getFoto(self):
+		return self.foto_loja
 
 
 class Login():

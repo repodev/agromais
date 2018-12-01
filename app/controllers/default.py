@@ -1,10 +1,11 @@
 from flask import render_template,request,abort,redirect,url_for,session,flash,jsonify
 from app import app
+from werkzeug.utils import secure_filename
+
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
 from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id
-import hashlib
-
+import hashlib,time,os
 @app.route("/")
 def index():
     logado=None
@@ -31,6 +32,12 @@ def cadastra_produto():
 
 
     return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
+
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
 @app.route("/valida_registro",methods=['GET','POST'])
@@ -60,9 +67,13 @@ def valida_registro():
                 erro = "Erro ao Cadastrar seu perfil, por favor tente novamente."
                 return jsonify([{'status':'NO'},{'erro':erro}])
         else:
-            perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'])
             
-            resposta_perfil_produtor=inserir_perfil_produtor(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha(),perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja())    
+
+            print(file)
+            
+            perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'],novo_nome)
+            
+            resposta_perfil_produtor=inserir_perfil_produtor(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha(),perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja(),perfil_produtor.getFoto())
             
             if (resposta_perfil_produtor == 'Aceito'):
                 flash('Cadastro realizado com sucesso.')
