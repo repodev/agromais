@@ -9,20 +9,6 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'teste'
 
-if('foto_loja' in request.files):
-                file = request.files['foto_loja']
-            else:
-                file = None
-            if file and allowed_file(file.filename):
-                #pega o filename e deixa somente a extensão
-                filename = secure_filename(file.filename).split(".")[1]
-                #gera novo nome de acordo com o timestamp atual
-                gera_nome = hashlib.sha256(str(time.time()).encode()).hexdigest()
-                #cria novo nome cortado o sha256 e concatena com extensão
-                novo_nome = gera_nome[0:20]+"."+filename
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], novo_nome))
-            else:
-                novo_nome = None
                 
 def allowed_file(filename):
     return '.' in filename and \

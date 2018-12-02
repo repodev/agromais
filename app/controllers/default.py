@@ -1,18 +1,23 @@
 from flask import render_template,request,abort,redirect,url_for,session,flash,jsonify
 from app import app
-from werkzeug.utils import secure_filename
+
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
-from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto
-import hashlib,time,os
+
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem
+
 @app.route("/")
 def index():
     logado=None
-    cod=[1,2,3,4,5,6,7,8]
+    if(recupera_produtos()):
+        produtos=recupera_produtos()
+    else:
+        produtos = None
+    
 
     if('tipo_conta' in session):
         logado = session['tipo_conta']
-    return render_template('index.html',cods=cod,logado=logado, footer=True)
+    return render_template('index.html',produtos=produtos,logado=logado, footer=True)
 
 @app.route("/registro/",methods=['GET','POST'])
 def registro():
@@ -28,25 +33,32 @@ def registra_produto():
     #variavel para ocultar botão (mais) na pagina do cadastro do produto
     b_cadastrar = None
     if('id_produtor' in session):
+        if('tipo_conta' in session):
+            logado = session['tipo_conta']
         return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
     else:
         return abort(404)
 
 @app.route("/valida_produto", methods=['GET','POST'])
 def valida_produto():
+    b_cadastrar = None
     erro=None
     print("-----------",session['id_produtor'])
     if(request.method == 'POST'):
+        FLAG = "foto_produto"
         logado = session['tipo_conta']
         id_produtor = session['id_produtor']
-        produto = Produto(request.form['nome'],request.form['categoria'],request.form['subcategoria'],request.form['preco'],request.form['estoque'],request.form['descricao_produto'],id_produtor)
+        imagem_produto = gera_nome_imagem(FLAG)
 
-        resposta = inserir_produto(produto.getNome_produto(),produto.getSubcategoria(),produto.getPreco(),produto.getEstoque(),produto.getDescricao_produto(),produto.getId_produtor())
+        produto = Produto(request.form['nome'],request.form['subcategoria'],request.form['preco'],request.form['estoque'],imagem_produto,request.form['descricao_produto'],id_produtor)
+        
+        resposta = inserir_produto(produto.getNome_produto(),produto.getSubcategoria(),produto.getPreco(),produto.getEstoque(),produto.getFotoProduto(),produto.getDescricao_produto(),produto.getIdProdutor())
         if (resposta=='Duplicado'):
             erro = "Já existe um produto com essas informações!"
             return jsonify({'status':'2','erro':erro})
 
         elif (resposta=='Aceito'):
+            salva_imagem(FLAG,imagem_produto)
             flash('Produto cadastrado com sucesso.')
             url = "/"
             return jsonify({'status':'1','url':url})
@@ -56,10 +68,7 @@ def valida_produto():
             return jsonify([{'status':'NO'},{'erro':erro}])
     return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
 
-def allowed_file(filename):
-    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 
 
 @app.route("/valida_registro",methods=['GET','POST'])
@@ -89,15 +98,18 @@ def valida_registro():
                 erro = "Erro ao Cadastrar seu perfil, por favor tente novamente."
                 return jsonify([{'status':'NO'},{'erro':erro}])
         else:
+            FLAG = "foto_loja"                
             
-
-            print(file)
+            #gera nome, na gambiarra
+            imagem = gera_nome_imagem(FLAG)            
             
-            perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'],novo_nome)
+            perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'],imagem)
             
             resposta_perfil_produtor=inserir_perfil_produtor(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha(),perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja(),perfil_produtor.getFoto())
             
             if (resposta_perfil_produtor == 'Aceito'):
+                #evita que a imagem fique sendo salva, caso o formulario apresente erro no envio, salva apenas se o cadastro for aceito
+                salva_imagem(FLAG,imagem)
                 flash('Cadastro realizado com sucesso.')
                 url = "/"
                 return jsonify({'status':'1','url':url})

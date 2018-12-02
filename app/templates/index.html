@@ -62,21 +62,25 @@
 		<h1 class="content-subhead ml-3">Produtos</h1>
     <div class="row">
   		<div class="card-group">
- 
-        {% for cod in cods %}
-         
+				
+				{% if (produtos) %}
+				{% for produto in produtos %}
+					
+        <!--produto[9].strftime('%d-%m-%Y %H:%M:%S')-->
         <div class="col-sm-4">
     		  <div class="card bg-default cshadow">
             <a href="produto.html">
-              <img class="card-img-top imgc" src="{{url_for('static', filename='img/alface.png')}}" alt="Card image">
+              <img class="card-img-top imgc" src="static/upload/produtos/{{produto[5]}}" alt="Card image">
             </a>
     		    <div class="card-body ">
-    		      <h4 class="card-title cardh4">Alface</h4>
-              <p class="aprod card-text cardp"><a class="linkprod" href="{{ url_for('perfil',produtor_id=cod )}}">
-                  Alfaces C&A</a></p>
+    		      <h4 class="card-title cardh4">{{produto[1]}}</h4>
+              <p class="aprod card-text cardp"><a class="linkprod" href="{{ url_for('perfil',produtor_id=produto[0] )}}">
+									Alfaces C&A</a></p>
+							<p class="text-success card-text cardp">R${{produto[3]}}</p>
               <form class="cardform">
                 <div class="input-group mb-1 mt-1">
-                  <input type="number" class="form-control cardf" placeholder="0" min="0" maxlength="9" />
+									<input type="number" class="form-control cardf" placeholder="0" min="0" maxlength="9" />
+									  
                   <div class="input-group-append">
                     <button class="btn btn-primary cardb">Comprar</button>
                   </div>  
@@ -85,7 +89,8 @@
     		    </div>
     		  </div>
         </div>
-        {% endfor %}
+				{% endfor %}
+				{% endif %}
        
         
   		</div>

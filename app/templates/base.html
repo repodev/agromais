@@ -154,10 +154,11 @@
 {% endblock %}
 
 {% if (logado == 'produtor' and ocultar != None) %}
+<a href="{{ url_for('registra_produto')}}" class=" cshadow btncshadow" >
 <div class="float" >
-<a href="{{ url_for('cadastra_produto')}}" class=" cshadow btncshadow" ><i class="fa fa-plus my-float"></i></a>
-
+<i class="fa fa-plus my-float"></i>
 </div>
+</a>
 {% endif %}
 
 <br><br>
