@@ -103,9 +103,9 @@ def valida_registro():
             #gera nome, na gambiarra
             imagem = gera_nome_imagem(FLAG)            
             
-            perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'],imagem)
+            perfil_produtor = PerfilProdutor(request.form['nome'],request.form['sobrenome'],request.form['contato'],request.form['cidade'],request.form['bairro'],request.form['endereco'],request.form['cpf'],request.form['email'],request.form['senha'],request.form['nome_loja'],request.form['cnpj'],request.form['contato_comercial'],request.form['endereco_loja'],request.form['descricao_loja'],imagem)
             
-            resposta_perfil_produtor=inserir_perfil_produtor(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha(),perfil_produtor.getNome_loja(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja(),perfil_produtor.getFoto())
+            resposta_perfil_produtor=inserir_perfil_produtor(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha(),perfil_produtor.getNome_loja(),perfil_produtor.getCnpj(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja(),perfil_produtor.getFoto())
             
             if (resposta_perfil_produtor == 'Aceito'):
                 #evita que a imagem fique sendo salva, caso o formulario apresente erro no envio, salva apenas se o cadastro for aceito
