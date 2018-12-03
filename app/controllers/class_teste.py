@@ -86,9 +86,9 @@ class Login():
 		return self.senha
 
 class Produto():
-	def __init__(self,nome_produto,subcategoria,preco,estoque,foto_produto,descricao_produto,ref_produtor):
+	def __init__(self,nome_produto,categoria,subcategoria,preco,estoque,foto_produto,descricao_produto,ref_produtor):
 		self.nome_produto = nome_produto
-		#self.categoria = categoria
+		self.categoria = categoria
 		self.subcategoria = subcategoria
 		self.preco = preco
 		self.estoque = estoque
@@ -99,8 +99,8 @@ class Produto():
 	def getNome_produto(self):
 		return self.nome_produto
 
-	#def getCategoria(self):
-	#	return self.categoria
+	def getCategoria(self):
+		return self.categoria
 
 	def getSubcategoria(self):
 		return self.subcategoria

@@ -59,19 +59,15 @@
 					</div>
 					<div class="form-group">
 					  <label for="sel1" class="content-subhead">Categoria:</label>
+					  				  
 					  <select class="form-control" id="categ" name="categoria">
-					    <option value="Artesanais">Artesanais</option>
-					    <option value="Estocáveis">Estocáveis</option>
-					    <option value="Derivados">Derivados</option>
-					    <option value="Orgânicos">Orgânicos</option>
-					    <option value="Animais">Animais</option>
-					    <option value="Vegetais">Vegetais</option>
-					    <option value="Rações">Rações</option>
-					    <option value="Frutas">Frutas</option>
-					    <option value="Legumes">Legumes</option>
-					    <option value="Adulbos">Adulbos</option>
-					    <option value="Outros">Outros</option>
+						{% if (categorias) %}	
+						{% for categoria in categorias %}
+					    <option value="{{categoria[0]}}">{{categoria[1]}}</option>
+						{% endfor %}
+						{% endif %}
 					  </select>
+					  
 					</div>
 					<div class="form-group">
 					    <input type="text" name="subcategoria" class="form-control" id="sucategoria" placeholder="Subcategoria" required="required">

@@ -4,7 +4,7 @@ from app import app
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
 
-from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias
 
 @app.route("/")
 def index():
@@ -32,10 +32,14 @@ def registra_produto():
     logado=None
     #variavel para ocultar botão (mais) na pagina do cadastro do produto
     b_cadastrar = None
+    if(lista_categorias()):
+        categorias=lista_categorias()
+    else:
+        categorias = None
     if('id_produtor' in session):
         if('tipo_conta' in session):
             logado = session['tipo_conta']
-        return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
+        return render_template('registrarproduto.html', categorias=categorias, footer=True,logado=logado, ocultar = b_cadastrar)
     else:
         return abort(404)
 
@@ -50,9 +54,9 @@ def valida_produto():
         id_produtor = session['id_produtor']
         imagem_produto = gera_nome_imagem(FLAG)
 
-        produto = Produto(request.form['nome'],request.form['subcategoria'],request.form['preco'],request.form['estoque'],imagem_produto,request.form['descricao_produto'],id_produtor)
+        produto = Produto(request.form['nome'],request.form['categoria'],request.form['subcategoria'],request.form['preco'],request.form['estoque'],imagem_produto,request.form['descricao_produto'],id_produtor)
         
-        resposta = inserir_produto(produto.getNome_produto(),produto.getSubcategoria(),produto.getPreco(),produto.getEstoque(),produto.getFotoProduto(),produto.getDescricao_produto(),produto.getIdProdutor())
+        resposta = inserir_produto(produto.getNome_produto(),produto.getCategoria(),produto.getSubcategoria(),produto.getPreco(),produto.getEstoque(),produto.getFotoProduto(),produto.getDescricao_produto(),produto.getIdProdutor())
         if (resposta=='Duplicado'):
             erro = "Já existe um produto com essas informações!"
             return jsonify({'status':'2','erro':erro})

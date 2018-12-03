@@ -180,7 +180,11 @@
 				    	<input type="text" name="nome_loja" class="form-control" id="nomeloja"  placeholder="Nome Loja Física">
 					</div>
 				  	<div class="form-group">
-						<input type="tel"  name="contato_comercial" class="form-control" maxlength="13"  value="" id="contatocomercial" placeholder="Contato Comercial" > 
+						<input type="tel"  name="contato_comercial" class="form-control"  value="" id="contatocomercial" placeholder="Contato Comercial" > 
+					</div>
+					<div class="form-group">
+						<label class="text-danger">Caso possua CNPJ, favor informar.</LAbel>
+						<input type="tel"  name="cnpj"  class="form-control"   value="" id="cnpj" placeholder="CNPJ" > 
 					</div>
 					<div class="form-group">
 						<input type="text" name="endereco_loja" class="form-control" id="enderecoloja" placeholder="Endereço Loja Física">
@@ -250,6 +254,7 @@
 			});
 
 $('#cpf').mask('000.000.000-00');
+$('#cnpj').mask('00.000.000/0000-00');
 $('#contato').mask('(00) 0-0000-0000');
 $('#contatocomercial').mask('(00) 0-0000-0000');
 
