@@ -37,6 +37,7 @@ def registro():
     else:
         return render_template('registrar.html', footer=True,error=erro)
 
+
 @app.route("/registra_produto/")
 def registra_produto():
     logado=None
@@ -53,6 +54,7 @@ def registra_produto():
     else:
         return abort(404)
 
+
 @app.route("/produto/<int:id_produto>/")
 def produto(id_produto):
     logado=None
@@ -64,6 +66,15 @@ def produto(id_produto):
 
     return render_template('produto.html',footer=False,logado=logado,ocultar = b_cadastrar, produto=info_produto)
 
+
+@app.route("/valida_compra")
+def valida_compra():
+    session['id_produto']=id_produto
+
+    if(session['id_perfil']):
+        
+    else:
+        return redirect (url_for('login'))
 
 @app.route("/valida_produto", methods=['GET','POST'])
 def valida_produto():
@@ -93,8 +104,6 @@ def valida_produto():
             erro = "Erro ao Cadastrar seu produto, por favor tente novamente."
             return jsonify([{'status':'NO'},{'erro':erro}])
     return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
-
-
 
 
 @app.route("/valida_registro",methods=['GET','POST'])
@@ -146,6 +155,7 @@ def valida_registro():
                 erro = "Erro ao inserir o perfil, tente novamente!"
                 return jsonify({'status':'2','erro':erro})
 
+
 @app.route("/login/",methods=['GET','POST'])
 def login():
     erro = None
@@ -188,9 +198,11 @@ def logout():
     session.pop('id_perfil',None)
     return redirect(url_for('index'))
 
+
 @app.route("/recuperar")
 def recuperar_conta():
     return render_template('recuperarsenha.html')
+
 
 @app.route("/perfil/<int:produtor_id>/")
 def perfil(produtor_id):
@@ -201,8 +213,6 @@ def perfil(produtor_id):
         return render_template('produtor.html', id=produtor_id, logado=logado)
     else:
         return "Este produtor não existe"
-
-
 
 
 @app.route("/sobre/")
