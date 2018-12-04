@@ -53,6 +53,15 @@ def registra_produto():
     else:
         return abort(404)
 
+@app.route("/produto")
+def produto():
+    logado=None
+    if('tipo_conta' in session):
+        logado = session['tipo_conta']
+
+    return render_template('registrarproduto.html',footer=True,logado=logado)
+
+
 @app.route("/valida_produto", methods=['GET','POST'])
 def valida_produto():
     b_cadastrar = None
