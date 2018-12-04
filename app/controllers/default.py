@@ -4,12 +4,21 @@ from app import app
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
 
-from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria
 
 @app.route("/")
 def index():
+
     logado=None
-    if(recupera_produtos()):
+    if(lista_categorias()):
+        categorias=lista_categorias()
+    else:
+        categorias = None
+    if(request.args.get("categoria")):
+        id_categoria=request.args.get("categoria")
+        produtos=recupera_produtos_categoria(int(id_categoria))
+
+    elif(recupera_produtos()):
         produtos=recupera_produtos()
     else:
         produtos = None
@@ -17,7 +26,8 @@ def index():
 
     if('tipo_conta' in session):
         logado = session['tipo_conta']
-    return render_template('index.html',produtos=produtos,logado=logado, footer=True)
+    return render_template('index.html',categorias=categorias,produtos=produtos,logado=logado, footer=True)
+
 
 @app.route("/registro/",methods=['GET','POST'])
 def registro():
@@ -172,8 +182,11 @@ def recuperar_conta():
 
 @app.route("/perfil/<int:produtor_id>/")
 def perfil(produtor_id):
+    logado = None
+    if('tipo_conta' in session):
+        logado = session['tipo_conta']
     if produtor_id in [1,2,3,4,5,6,7,8]:
-        return render_template('produtor.html', id=produtor_id)
+        return render_template('produtor.html', id=produtor_id, logado=logado)
     else:
         return "Este produtor não existe"
 

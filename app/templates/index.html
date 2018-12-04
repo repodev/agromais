@@ -42,19 +42,12 @@
 		<div class="categoria ml-3">
 			<h1 class="content-subhead ml-3">CATEGORIAS</h1>
 			<div class="list-group">
-				<a href="#" class="list-group-item mb-1 cshadow">+Comprados<span class="badge mb-1">12</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">+Baratos<span class="badge mb-1">03</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">Artesanais<span class="badge mb-1">05</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">Estocáveis<span class="badge mb-1">10</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">Derivados<span class="badge mb-1">08</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">Orgânicos<span class="badge mb-1">02</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">Animais<span class="badge mb-1">03</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">Vegetais<span class="badge mb-1">20</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">Rações<span class="badge mb-1">09</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">Frutas<span class="badge mb-1">12</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">Legumes<span class="badge mb-1">15</span></a>
-				<a href="#" class="list-group-item mb-1 cshadow">Adulbos<span class="badge mb-1">02</span></a>
-        <a href="#" class="list-group-item mb-1 cshadow">Outros<span class="badge mb-1">00</span></a>
+				{% if (categorias) %}	
+						{% for categoria in categorias %}
+				
+				<a href="{{url_for('index', categoria=categoria[0]) }}" class="list-group-item mb-1 cshadow">{{categoria[1]}}</a>
+				{% endfor %}
+				{% endif %}
 			</div>
 			
 		</div>
