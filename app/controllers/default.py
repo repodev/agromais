@@ -72,7 +72,7 @@ def valida_compra():
     session['id_produto']=id_produto
 
     if(session['id_perfil']):
-        
+        pass
     else:
         return redirect (url_for('login'))
 
