@@ -167,7 +167,7 @@ h5,h6{
 	position:fixed;
 	width:60px;
 	height:60px;
-	bottom:40px;
+	bottom:70px;
 	right:40px;
 	background-color:#009B36;
 	color:#FFFFFF;
@@ -180,9 +180,14 @@ h5,h6{
 
 }
 .my-float{
-	margin-top:22px;
+  margin-top:22px;
 	color: white;
 }
+/*Correcao botoes*/
+.input-group-append {
+  z-index: 0 !important;
+}
+
 /*card de produtos*/
 
 .imgc{
@@ -207,6 +212,7 @@ h5,h6{
 	font-size: 13px;
   font-variant: small-caps;
   font-size-adjust: 14px;
+  
 }
 .card{
 	max-width: 100%;
@@ -264,24 +270,33 @@ h5,h6{
 #formlogin form input{
   margin-bottom: 5%;
 }
-.form-perfil h1,h2,h3,h4,h5,h6{
+
+/*perfil*/
+
+.perfil{
+  display: block;
+  margin-top: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
   color: black;
 }
-.form-perfil input{
-  font-size: 15px;
-  color: 
-}
-.imgslide{
-  max-width: 60%;
+.perfil img{
+  max-width: 100%;
   height: auto;
+  margin-left: 20%;
 }
-.bordas{
-  border-left-style:solid;
-  border-width: 1px;
-  border-color: #eee;
-
+.form-perfil{
+  float: left;
+  margin-left: 10%;
+  text-align: center;
 }
-
+.linkprod{
+  color: #afafaf;
+}
+.linkprod:hover{
+  text-decoration: underline;
+  color: #afafaf;
+}
 
 
 

@@ -11,7 +11,16 @@
 
 	}
 	</script>
-
+<style>
+.produto {
+	text-decoration: none;
+	color: #000000;
+ }
+ .produto:hover {
+	text-decoration: none;
+	color: #000000;
+ }
+</style>
 {% endblock %}
 
 
@@ -64,14 +73,14 @@
         <div class="col-sm-4">
     		  <div class="card bg-default cshadow">
 						
-            <a href="produto.html">
+            <a href="{{url_for('produto', id_produto=produto[0])}}">
 							
 							<img class="card-img-top" src="static/upload/produtos/{{produto[6]}}" alt="Card image" style="width: 100%; height: 250px;">
 							
 						</a>
 				
     		    <div class="card-body ">
-    		      <h4 class="card-title cardh4">{{produto[1]}}</h4>
+    		      <h4 class="card-title cardh4 "><a  class= "produto" href="{{url_for('produto', id_produto=produto[0])}}">{{produto[1]}}</a></h4>
               <p class="aprod card-text cardp"><a class="linkprod" href="{{ url_for('perfil',produtor_id=produto[0] )}}">
 								{{produto[13]}}</a></p>
 							<p class="text-success card-text cardp">R${{produto[4]}}</p>

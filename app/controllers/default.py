@@ -4,7 +4,7 @@ from app import app
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
 
-from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto
 
 @app.route("/")
 def index():
@@ -53,13 +53,16 @@ def registra_produto():
     else:
         return abort(404)
 
-@app.route("/produto")
-def produto():
+@app.route("/produto/<int:id_produto>/")
+def produto(id_produto):
     logado=None
+    b_cadastrar = None
+    if(recupera_um_produto(id_produto)):
+        info_produto = recupera_um_produto(id_produto)
     if('tipo_conta' in session):
         logado = session['tipo_conta']
 
-    return render_template('registrarproduto.html',footer=True,logado=logado)
+    return render_template('produto.html',footer=False,logado=logado,ocultar = b_cadastrar, produto=info_produto)
 
 
 @app.route("/valida_produto", methods=['GET','POST'])
