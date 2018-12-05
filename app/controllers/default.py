@@ -4,7 +4,7 @@ from app import app
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
 
-from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos
 
 @app.route("/")
 def index():
@@ -195,10 +195,15 @@ def recuperar_conta():
 @app.route("/perfil/<int:produtor_id>/")
 def perfil(produtor_id):
     logado = None
+    perfil = None
+    produtos =None
     if('tipo_conta' in session):
         logado = session['tipo_conta']
-    if produtor_id in [1,2,3,4,5,6,7,8]:
-        return render_template('produtor.html', id=produtor_id, logado=logado)
+    if(perfil_produtor_publico(produtor_id)):
+        perfil = perfil_produtor_publico(produtor_id)
+    if(perfil_produtor_produtos(produtor_id)):
+        produtos = perfil_produtor_produtos(produtor_id)
+        return render_template('produtor.html', info=perfil, logado=logado, footer=True, produtos=produtos)
     else:
         return "Este produtor não existe"
 
