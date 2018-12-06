@@ -34,14 +34,37 @@
 	.triangle-right:hover{
 	border-left: 25px solid #28c34b;
 	}
+
+	#mySidenav2 a {
+    position: absolute;
+    left: -80px;
+    transition: 0.3s;
+    padding: 15px;
+    width: 100px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    border-radius: 0 5px 5px 0;
+	}
+
+	#mySidenav2 a:hover {
+	    left: 0;
+	}
+
+	#about {
+	    top: 20px;
+	    background-color: #4CAF50;
+	}
+
+
 	.sidenav {
     height: 100%;
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 0;
+    top: 68px;
     left: 0;
-    background-color: #111;
+    background-color: #f8f9fa;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -197,17 +220,21 @@
 
 <div class="triangle-right" onclick="openNav()" ></div>
 <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+  	<a href="javascript:void(0)" class="closebtn" style="margin-right: -10%;" onclick="closeNav()">&times;</a>
+  	<div class="list-group" style="max-width: 70%; height: auto; margin-left: 10px;">
+				{% if (categorias) %}	
+						{% for categoria in categorias %}
+				
+				<a href="{{url_for('index', categoria=categoria[0]) }}" class="list-group-item mb-1 cshadow">{{categoria[1]}}</a>
+				{% endfor %}
+				{% endif %}
+	</div>
 </div>
 
 <script>
 function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
+    document.getElementById("mySidenav").style.width = "200px";
+    document.getElementById("main").style.marginLeft = "200px";
 }
 
 function closeNav() {
