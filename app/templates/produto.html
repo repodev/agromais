@@ -48,7 +48,7 @@
 				<div class="pure-u-1 pure-u-md-3-8 imgslide ">
 					<div class="ml-3">
               <div class="pure-img" style="">
-						      <img src="../../static/upload/produtos/{{produto[6]}}" alt="">
+						      <img src="../../static/upload/produtos/{{produto[6]}}" alt="" style="max-width: 100%; max-height: 100%; width: 200%;">
 						    </div>
 						
 					</div>
@@ -59,7 +59,7 @@
 						<h2>{{produto[1]}}</h2>
 						<h5><a href="produtor.html" style="color: #afafaf;">{{produto[13]}}</a></h5>
 						<form>
-							<h3 style="font-weight: 300; color: #2b2a2af0">R$<input type="text" class="form-control-plaintext" value="{{produto[4]}}" disabled="disabled" style="margin-top: -45px; margin-left: 50px;"></h3>
+							<h3 style="font-weight: 300; color: #2b2a2af0">R$<input type="text" class="form-control-plaintext" value="{{produto[4]}}" readonly="readonly" style="margin-top: -45px; margin-left: 50px;"></h3>
 							<label for="sel1">
                 {% if( (produto[5] > 1 )) %}
                    {{produto[5]}} Unidades disponiveis
@@ -72,12 +72,14 @@
 						<form class="form-inline">
 	                  		<div class="form-group">
 							  <label for="sel1">Quantidade:</label>
-							  <input type="number" name="unidade" class="valor form-control ml-3"id="estoque" min="0" id="qtd" max="{{produto[5]}}" maxlength="1" placeholder="0" style="font-size:14px;" custo="custo1">
+							  <input type="number" name="unidade" class="valor form-control ml-3" min="1" max="{{produto[5]}}" maxlength="1" id="qtd" placeholder="1" value="1" style="font-size:14px;" custo="custo1">
+								<button type="button" id="val" class="btn btn-primary" data-toggle="modal" data-target="#comp" style="margin-top: 30px; margin-right: 30%;" required="required">Quero este produto!</button>
 							</div>
+							
 								              
 	        	        </form>
 
-	        	        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#comp" style="margin-top: 30px;">Quero este produto!</button>
+	        	        
         	        </div>
         	        <br><br>
 
@@ -91,11 +93,12 @@
 
 <div class="container">
   <h2>Mais informações do produto</h2>
-  <p>Blique no botão para mais informações do produto</p>
+  <p>Clique no botão para mais informações do produto</p>
   <!-- Button to Open the Modal -->
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#desc">
     +Informações
   </button>
+  <br><br><br><br>
 
   <!-- The Modal -->
   <div class="modal fade" id="desc">
