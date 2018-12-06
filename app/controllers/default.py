@@ -3,6 +3,7 @@ from app import app
 
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
+from .class_errors import *
 
 from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos
 
@@ -90,9 +91,10 @@ def valida_produto():
         produto = Produto(request.form['nome'],request.form['categoria'],request.form['subcategoria'],request.form['preco'],request.form['estoque'],imagem_produto,request.form['descricao_produto'],id_produtor)
         
         resposta = inserir_produto(produto.getNome_produto(),produto.getCategoria(),produto.getSubcategoria(),produto.getPreco(),produto.getEstoque(),produto.getFotoProduto(),produto.getDescricao_produto(),produto.getIdProdutor())
+        erro = ErrorCadProduto()
+
         if (resposta=='Duplicado'):
-            erro = "Já existe um produto com essas informações!"
-            return jsonify({'status':'2','erro':erro})
+            return jsonify({'status':'2','erro':erro.reg_duplicado()})
 
         elif (resposta=='Aceito'):
             salva_imagem(FLAG,imagem_produto)
@@ -101,8 +103,8 @@ def valida_produto():
             return jsonify({'status':'1','url':url})
 
         else:
-            erro = "Erro ao Cadastrar seu produto, por favor tente novamente."
-            return jsonify([{'status':'NO'},{'erro':erro}])
+            return jsonify([{'status':'NO'},{'erro':erro.reg_desconhecido()}])
+
     return render_template('registrarproduto.html', footer=True,logado=logado, ocultar = b_cadastrar)
 
 
@@ -120,18 +122,17 @@ def valida_registro():
             
             print(resposta)
 
+            erro = ErrorCadPerfil()
+
             if (resposta=='Duplicado'):
-                erro = "Já existe um perfil com essas informações! verifique os campos (email,cpf)"
-                return jsonify({'status':'2','erro':erro})
+                return jsonify({'status':'2','erro':erro.reg_duplicado()})
 
             elif (resposta=='Aceito'):
                 flash('Cadastro realizado com sucesso.')
                 url = "/"
                 return jsonify({'status':'1','url':url})
             else:
-
-                erro = "Erro ao Cadastrar seu perfil, por favor tente novamente."
-                return jsonify([{'status':'NO'},{'erro':erro}])
+                return jsonify([{'status':'NO'},{'erro':erro.reg_desconhecido()}])
         else:
             FLAG = "foto_loja"                
             
@@ -142,6 +143,8 @@ def valida_registro():
             
             resposta_perfil_produtor=inserir_perfil_produtor(perfil_produtor.getNome(),perfil_produtor.getSobrenome(),perfil_produtor.getContato(),perfil_produtor.getCidade(),perfil_produtor.getBairro(),perfil_produtor.getEndereco(),perfil_produtor.getCpf(),perfil_produtor.getEmail(),perfil_produtor.getSenha(),perfil_produtor.getNome_loja(),perfil_produtor.getCnpj(),perfil_produtor.getContato_comercial(),perfil_produtor.getEndereco_comercial(),perfil_produtor.getDescricao_loja(),perfil_produtor.getFoto())
             
+            erro = ErrorCadPerfilProdutor()
+
             if (resposta_perfil_produtor == 'Aceito'):
                 #evita que a imagem fique sendo salva, caso o formulario apresente erro no envio, salva apenas se o cadastro for aceito
                 salva_imagem(FLAG,imagem)
@@ -149,11 +152,9 @@ def valida_registro():
                 url = "/"
                 return jsonify({'status':'1','url':url})
             elif(resposta_perfil_produtor == 'Duplicado' ):
-                erro = "Já existe um perfil com essas informações! verifique os campos (email, cpf, nome loja)"
-                return jsonify({'status':'2','erro':erro})
+                return jsonify({'status':'2','erro':erro.reg_duplicado()})
             else:
-                erro = "Erro ao inserir o perfil, tente novamente!"
-                return jsonify({'status':'2','erro':erro})
+                return jsonify({'status':'2','erro':erro.reg_desconhecido()})
 
 
 @app.route("/login/",methods=['GET','POST'])
@@ -185,7 +186,8 @@ def login():
 
             #Caso aconteça algum erro ou não tenha cadastro  
             else:
-                erro='Email ou senha incorretos, tente novamente!!'         
+                error = ErroCadLogin()
+                erro = error.reg_desconhecido()         
         
         return render_template('login.html', error=erro)
 
