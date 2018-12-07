@@ -9,7 +9,7 @@ from .class_Errors import *
 from .class_Produto import *
 from .class_PerfilProdutor import *
 
-from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos,registra_pedido
 
 @app.route("/")
 def index():
@@ -64,6 +64,7 @@ def registra_produto():
 def produto(id_produto):
     logado=None
     b_cadastrar = None
+    info_produto = None
     if(recupera_um_produto(id_produto)):
         info_produto = recupera_um_produto(id_produto)
     if('tipo_conta' in session):
@@ -82,6 +83,7 @@ def meus_produtos():
 def valida_pedido(id_produto):
     if(request.method == 'POST'):
         session['id_produto']=id_produto
+        session['id_produtor_pedido']=request.form['id_produtor']
         unidade_b = float(request.form['unidade_b']) #unidade vinda do banco
         unidade_u = float(request.form['unidade']) #unidade vinda do usuario
         novo_preco = (float(request.form['preco'])*unidade_u) 
@@ -104,10 +106,17 @@ def confirma_pedido():
     if(request.method == 'POST'):
         session['unidade_pedido'] = request.form['unidade_pedido']
         session['unidade_valor'] = request.form['unidade_valor']
+        
+
     if('id_perfil' in session):
-            session.pop('unidade_valor',None)
+            pedido = Pedido(session['id_produto'],session['id_perfil'],session['id_produtor_pedido'],session['unidade_pedido'],session['unidade_valor'])
+            
+            registra_pedido(pedido.getId_produto(),pedido.getId_comprador(),pedido.getId_produtor(),pedido.getQuantidade(),pedido.getValor() )
             session.pop('id_produto',None)
+            session.pop('id_produtor_pedido',None)
             session.pop('unidade_pedido',None)
+            session.pop('unidade_valor',None)
+            
             return "comprado com sucesso"
     else:
             return redirect(url_for('login'))
