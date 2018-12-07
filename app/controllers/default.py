@@ -77,15 +77,37 @@ def meus_produtos():
         logado = session['tipo_conta']
     return render_template('meusprodutos.html',footer=False,logado=logado,ocultar = None)
 
-@app.route("/valida_compra")
-def valida_compra():
-    session['id_produto']=id_produto
+@app.route("/valida_pedido/<int:id_produto>", methods=['GET','POST'])
+def valida_pedido(id_produto):
+    if(request.method == 'POST'):
+        session['id_produto']=id_produto
+        unidade_b = float(request.form['unidade_b']) #unidade vinda do banco
+        unidade_u = float(request.form['unidade']) #unidade vinda do usuario
+        novo_preco = (float(request.form['preco'])*unidade_u) 
+        if(unidade_b >= unidade_u):        
+            
+            return jsonify({'status': '1','novo_preco': novo_preco, 'unidade': unidade_u})       
+        else:
+            erro = "Pedido invalido, unidade invalida!"
+            print(novo_preco)
+            return jsonify({'status':'2','erro': erro})
+            
 
-    if(session['id_perfil']):
-        pass
-    else:
-        return redirect (url_for('login'))
+        #if(session['id_perfil']):
+        #    pass
+        #else:
+        #    return redirect (url_for('login'))
 
+@app.route("/confirma_pedido", methods=['GET','POST'])
+def confirma_pedido():
+    if(request.method == 'POST'):
+        session['unidade_pedido'] = request.form['unidade_pedido']
+        session['unidade_valor'] = request.form['unidade_valor']
+        if('id_perfil' in session):
+            pass
+        else:
+            return redirect(url_for('login'))
+    
 @app.route("/valida_produto", methods=['GET','POST'])
 def valida_produto():
     b_cadastrar = None
@@ -177,6 +199,8 @@ def login():
             perfil = Login(request.form['email'],request.form['senha'])
             
             id_produtor = verifica_cadastro(perfil.getEmail(),perfil.getSenha())
+            if('unidade_pedido' in session and 'unidade_valor' in session):
+                return redirect(url_for('confirma_pedido'))
 
             #login caso seja comprador
             if(id_produtor == None):
@@ -192,7 +216,7 @@ def login():
                 session['id_produtor'] = id_produtor
                 flash('Login realizado com sucesso, Vamos vender?')
                 return redirect(url_for('index'))
-
+            
             #Caso aconteça algum erro ou não tenha cadastro  
             else:
                 error = ErroCadLogin()

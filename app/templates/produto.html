@@ -69,11 +69,13 @@
               </label>
 						</form>
 						<br><br>
-						<form class="form-inline">
+						<form class="form-inline" id="register-form" method="post" >
 	                  		<div class="form-group">
 							  <label for="sel1">Quantidade:</label>
-							  <input type="number" name="unidade" class="valor form-control ml-3" min="1" max="{{produto[5]}}" maxlength="1" id="qtd" placeholder="1" value="1" style="font-size:14px;" custo="custo1">
-								<button type="button" id="val" class="btn btn-primary" data-toggle="modal" data-target="#comp" style="margin-top: 30px; margin-right: 30%;" required="required">Quero este produto!</button>
+                <input type="number" name="unidade" class="valor form-control ml-3" min="1"  maxlength="1" id="qtd" placeholder="1" value="1" style="font-size:14px;" custo="custo1">
+                <input type="hidden" class="form-control-plaintext" value="{{produto[4]}}" name="preco">
+                <input type="hidden" class="form-control-plaintext" value="{{produto[5]}}" name="unidade_b">
+								<button type="submit" id="val" class="btn btn-primary" data-toggle="modal" data-target="#comp" style="margin-top: 30px; margin-right: 30%;" >Quero este produto!</button>
 							</div>
 							
 								              
@@ -136,32 +138,29 @@
         </div>
         
         <!-- Modal body -->
-        <div class="modal-body colorb" style="word-wrap: break-word;">
-            <script type="text/javascript">
-            	 $(document).ready(function(){
-			        $(".valor").on("input", function(){
-			            var textoDigitado = $(this).val();
-			            var inputCusto = $(this).attr("custo");
-			            $("#"+ inputCusto).val(textoDigitado);
-			        });
-			    });
-            </script>
-            <form class="form-inline">
-            	<label class="form-group float-left">
-            		Você confirma a compra de <input type='text' id='custo1' name='custo1' class="form-control form-control-plaintext" disabled="disabled" style="background-color: white; font-size: 16px;">
-            	</label>
-            	<label class="form-group">
-            		unidades de {{produto[1]}} com o valor de {{produto[4]}} cada .
-            	</label>
-            </form>
+        <div class="modal-body " >
+      
+              <div class="result"></div>
+            	<div id="info_pedido">
+            		<p style="color:black ;">
+                  Você confirma a compra de <span class="qtd"></span> unidades de <span class="font-weight-bold">{{produto[1]}}</span>
+                   com o valor de  R$ <span class="text-success new_value font-weight-bold"></span></p>
+                   <form method="post" action="/confirma_pedido">
+                      <input type="hidden" name="unidade_pedido" id="unidade_pedido" >
+                      <input type="hidden" name="unidade_valor" id="unidade_valor" >
+                      <button type="submit" class="btn btn-success" >SIM	</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">NÃO	</button>
+                   </form>
+                 
+           </div>
+
+         
 
           	
         </div>
         
         <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar	</button>
-        </div>
+       
         
       </div>
     </div>
@@ -169,5 +168,45 @@
   
 
 </div>
+
+<script>
+$(document).ready(function(){
+
+function register_form(){
+    $.ajax({
+        url: '/valida_pedido/{{produto[0]}}',
+        data: $('#register-form').serialize(),
+        type: 'POST',
+        success: function(response) {						
+          if(response.status == '2'){
+            $("div.result").html('<div id="erro" class="alert alert-danger">'+response.erro+'</div>');
+            document.getElementById("info_pedido").style.display = "none";
+           
+
+          }else if(response.status == '1'){
+            $("span.new_value").html(response.novo_preco);
+            $("span.qtd").html(response.unidade);
+            document.getElementById("unidade_pedido").value = response.unidade;
+            document.getElementById("unidade_valor").value = response.novo_preco;
+
+            document.getElementById("info_pedido").style.display = "block";
+            document.getElementById("erro").style.display = "none";
+          }
+          
+
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+  }
+  $("#register-form").submit(function(event){
+    event.preventDefault();
+    register_form()
+
+  });
+});
+
+</script>
 
 {%endblock%}
