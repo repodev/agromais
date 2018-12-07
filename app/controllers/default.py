@@ -2,11 +2,11 @@ from flask import render_template,request,abort,redirect,url_for,session,flash,j
 from app import app
 
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
-from .class_teste import *
-from .class_pedido import *
-from .class_login import *
-from .class_errors import *
-from .class_produto import *
+from .class_Pedido import *
+from .class_Login import *
+from .class_PerfilComprador import *
+from .class_Errors import *
+from .class_Produto import *
 
 from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos
 
