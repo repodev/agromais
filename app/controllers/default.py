@@ -7,6 +7,7 @@ from .class_Login import *
 from .class_PerfilComprador import *
 from .class_Errors import *
 from .class_Produto import *
+from .class_PerfilProdutor import *
 
 from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos
 
@@ -103,9 +104,12 @@ def confirma_pedido():
     if(request.method == 'POST'):
         session['unidade_pedido'] = request.form['unidade_pedido']
         session['unidade_valor'] = request.form['unidade_valor']
-        if('id_perfil' in session):
-            pass
-        else:
+    if('id_perfil' in session):
+            session.pop('unidade_valor',None)
+            session.pop('id_produto',None)
+            session.pop('unidade_pedido',None)
+            return "comprado com sucesso"
+    else:
             return redirect(url_for('login'))
     
 @app.route("/valida_produto", methods=['GET','POST'])
@@ -199,22 +203,28 @@ def login():
             perfil = Login(request.form['email'],request.form['senha'])
             
             id_produtor = verifica_cadastro(perfil.getEmail(),perfil.getSenha())
-            if('unidade_pedido' in session and 'unidade_valor' in session):
-                return redirect(url_for('confirma_pedido'))
+
+            
 
             #login caso seja comprador
             if(id_produtor == None):
-                session['tipo_conta'] = 'comprador' #session global <<<-- Tirar depois
+                session['tipo_conta'] = 'comprador' #session global 
                 session['id_perfil'] = recupera_id(request.form['email'])
+                if('unidade_pedido' in session and 'unidade_valor' in session): #verifica se tem pedido na session
+                    return redirect(url_for('confirma_pedido'))
                 flash('Login realizado com sucesso, Vamos as compras?')
+                
                 return redirect(url_for('index'))
             
             #login caso seja produtor
             elif(id_produtor != False):
-                session['tipo_conta'] = 'produtor' #session global <<<-- Tirar depois
+                session['tipo_conta'] = 'produtor' #session global 
                 session['id_perfil'] = recupera_id(request.form['email']) 
                 session['id_produtor'] = id_produtor
+                if('unidade_pedido' in session and 'unidade_valor' in session):
+                    return redirect(url_for('confirma_pedido'))
                 flash('Login realizado com sucesso, Vamos vender?')
+                
                 return redirect(url_for('index'))
             
             #Caso aconteça algum erro ou não tenha cadastro  
