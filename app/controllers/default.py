@@ -70,6 +70,12 @@ def produto(id_produto):
 
     return render_template('produto.html',footer=False,logado=logado,ocultar = b_cadastrar, produto=info_produto)
 
+@app.route("/meus_produtos")
+def meus_produtos():
+    logado=None
+    if('tipo_conta' in session):
+        logado = session['tipo_conta']
+    return render_template('meusprodutos.html',footer=False,logado=logado,ocultar = None)
 
 @app.route("/valida_compra")
 def valida_compra():
