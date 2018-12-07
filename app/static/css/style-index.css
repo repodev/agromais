@@ -289,7 +289,13 @@ h5,h6{
     .imglogo { 
 
       display: none; }
-    
-    }
+    .modal{
+      max-width: auto;
+      height: auto;
+      width: auto;
+      max-height: auto;
+    }    
+}
+
 
 
