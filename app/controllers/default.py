@@ -3,7 +3,10 @@ from app import app
 
 #importação relativa do package, ele faz a pesquisa dentro do pacote atual, e não no pacote global
 from .class_teste import *
+from .class_pedido import *
+from .class_login import *
 from .class_errors import *
+from .class_produto import *
 
 from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos
 
@@ -90,7 +93,7 @@ def valida_produto():
 
         produto = Produto(request.form['nome'],request.form['categoria'],request.form['subcategoria'],request.form['preco'],request.form['estoque'],imagem_produto,request.form['descricao_produto'],id_produtor)
         
-        resposta = inserir_produto(produto.getNome_produto(),produto.getCategoria(),produto.getSubcategoria(),produto.getPreco(),produto.getEstoque(),produto.getFotoProduto(),produto.getDescricao_produto(),produto.getIdProdutor())
+        resposta = inserir_produto(produto.getNome_produto(),produto.getCategoria(),produto.getSubcategoria(),produto.getPreco(),produto.getEstoque(),produto.getFoto_produto(),produto.getDescricao_produto(),produto.getId_produtor())
         erro = ErrorCadProduto()
 
         if (resposta=='Duplicado'):
