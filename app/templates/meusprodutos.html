@@ -34,73 +34,16 @@
   <div class="pure-u-1 pure-u-lg-5-5">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" class="colorb" href="#menu">Informações</a>
+        <a class="nav-link" data-toggle="tab" class="colorb" href="#menu1">Meus Produtos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" class="colorb" href="#menu1">Meus Produtos</a>
+        <a class="nav-link" data-toggle="tab" class="colorb" href="#menu2">Notificações</a>
       </li>
       
     </ul>
  
     <!-- Tab panes -->
-    {% if(info)%}
     <div class="tab-content" style="background-color: white; margin-bottom: 10%;">
-      
-      <div class="tab-pane container active mb-3" id="menu">
-        <br>
-        <div class="form-perfil ml-3">
-          <!--
-          <div class="perfil">
-                  <h1 class="content-subhead" style="margin-top: -1PX; color: #afafaf;">perfil</h1>
-            </div>
-            
-            <form class="ml-3">
-              <div class="form-group colorb">
-                <label for="nome">NOME:</label>
-                <input type="text" class="form-control-plaintext" value="Fulano de tal" disabled="disabled">
-              </div>
-              <div class="form-group colorb">
-                <label for="nome">CONTATO:</label>
-                <input type="text" class="form-control-plaintext" value="(XX)XXXXX-XXXX" disabled="disabled">
-              </div>
-              <div class="form-group colorb">
-                <label for="nome">ENDEREÇO:</label>
-                <input type="text" class="form-control-plaintext" value="Crato - Bairro Seminário Rua tal 00" disabled="disabled">
-              </div>
-            </form>
-            -->
-          <div class="perfil">
-                  <h1 class="content-subhead" style="margin-top: -1PX;color: #afafaf;">Loja</h1>
-            </div>
-          <form class="ml-3">
-            <div class="pure-u-1 pure-u-lg-2-5"><img src="../../static/upload/produtores/{{info[6]}}"></div>
-            
-            <br><br>
-            <div class="form-group colorb">
-              <label for="nome">NOME:</label>
-              <input type="text" class="form-control-plaintext" value="{{info[1]}}" disabled="disabled">
-              
-            </div>
-            <div class="form-group colorb">
-                <label for="nome">DESCRIÇÃO:</label>
-                
-                   <p class="pre" style="color: #000000 !important;">{{info[3]}}</p>
-               
-              </div>
-            <div class="form-group colorb">
-              <label for="nome">CONTATO COMERCIAL:</label>
-              <input type="text" class="form-control-plaintext" value="{{info[4]}}" disabled="disabled">
-            </div>
-            <div class="form-group colorb">
-              <label for="nome">ENDEREÇO:</label>
-              <input type="text" class="form-control-plaintext" value="{{info[5]}}" disabled="disabled">
-            </div>
-            
-          </form>
-      </div>
-      {%endif%}
-    </div>
-
 
 
 
@@ -136,6 +79,41 @@
           {% endif %}
         </div>
       </div>
+    </div>
+    
+    <div class="tab-pane container fade" id="menu2">
+        <br>
+        <br>
+        <div class="card-group">
+        <div class="card text-center mb-3 mt-3">
+          <div class="card-header colorb">
+            Pedido
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Alface</h5>
+            <p class="card-text">Um cliente fez o pedido de 10 unidades.</p>
+            <a href="#" class="btn btn-success">Aceitar</a>
+            <a href="#" class="btn btn-danger">Rejeitar</a>
+          </div>
+          <div class="card-footer text-muted">
+            2 dias atrás
+          </div>
+          <div class="card text-center mb-3 mt-3">
+          <div class="card-header colorb">
+            Pedido
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Alface</h5>
+            <p class="card-text">Um cliente fez o pedido de 10 unidades.</p>
+            <a href="#" class="btn btn-success">Aceitar</a>
+            <a href="#" class="btn btn-danger">Rejeitar</a>
+          </div>
+          <div class="card-footer text-muted">
+            2 dias atrás
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
       
   </div>
