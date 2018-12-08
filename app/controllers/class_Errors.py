@@ -12,15 +12,15 @@ class ErrorCadPerfil(Errors):
         return "Já existe um perfil com essas informações! verifique os campos (email,cpf)"
     
     def reg_desconhecido(self):
-        return "Erro ao Cadastrar seu perfil, por favor tente novamente."
+        return "Erro ao cadastrar seu perfil, por favor tente novamente."
 
 class ErrorCadPerfilProdutor(Errors):
     
     def reg_duplicado(self):
-        return "Já existe um perfil com essas informações! verifique os campos (email, cpf, nome loja)"
+        return "Já existe um perfil produtor com essas informações! verifique os campos (email, cpf)"
     
     def reg_desconhecido(self):
-        return "Erro ao Cadastrar seu perfil, por favor tente novamente."
+        return "Erro ao cadastrar seu perfil produtor, por favor tente novamente."
 
 class ErrorCadProduto(Errors):
 
@@ -28,7 +28,7 @@ class ErrorCadProduto(Errors):
         return "Já existe um produto com essas informações!"
     
     def reg_desconhecido(self):
-        return "Erro ao Cadastrar seu produto, por favor tente novamente."
+        return "Erro ao cadastrar seu produto, por favor tente novamente."
 
 class ErroCadLogin(Errors):
     
