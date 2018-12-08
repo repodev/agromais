@@ -9,7 +9,7 @@ from .class_Errors import *
 from .class_Produto import *
 from .class_PerfilProdutor import *
 
-from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos,registra_pedido
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos,registra_pedido,recupera_pedidos
 
 @app.route("/")
 def index():
@@ -72,12 +72,16 @@ def produto(id_produto):
 
     return render_template('produto.html',footer=False,logado=logado,ocultar = b_cadastrar, produto=info_produto)
 
-@app.route("/meus_produtos")
-def meus_produtos():
+@app.route("/meus_pedidos")
+def meus_pedidos():
     logado=None
+    pedidos = None
     if('tipo_conta' in session):
         logado = session['tipo_conta']
-    return render_template('meusprodutos.html',footer=False,logado=logado,ocultar = None)
+        id_perfil = session['id_perfil']        
+        if(recupera_pedidos(id_perfil)):
+            pedidos = recupera_pedidos(id_perfil)
+    return render_template('meus_pedidos.html',footer=False,logado=logado,pedidos=pedidos,ocultar = None)
 
 @app.route("/valida_pedido/<int:id_produto>", methods=['GET','POST'])
 def valida_pedido(id_produto):

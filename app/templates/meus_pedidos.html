@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+<!--Inicio Head -->
+{% block title %}Meus pedidos - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+{{ super() }}
+
+	<script type="text/javascript">
+		function goFocus(elementID){
+
+		document.getElementById(elementID).focus();
+
+	}
+	</script>
+
+
+{% endblock %}
+
+{% block content %}
+<body onload="goFocus('search')">
+
+<!-- Inicio nav - MENU -->
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+<!-- Fim nav - MENU -->
+
+
+<div class="pure-g ml-3">
+
+	<div class="pure-u-1 pure-u-lg-5-5">
+    
+	</div>
+  <div class="pure-u-1 pure-u-lg-5-5">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" class="colorb" href="#menu">Informações</a>
+      </li>
+   
+      
+    </ul>
+ 
+    <!-- Tab panes -->
+    <div class="tab-content colorb" style="background-color: white; margin-bottom: 10%;">
+      
+      <div class="tab-pane container active mb-3" id="menu">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                
+                  <th scope="col">Nome Produto</th>
+                  <th scope="col">Quantidade</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Data pedido</th>
+                  <th scope="col">Nome Produtor</th>
+                  <th scope="col">Contato</th>
+                  <th scope="col">Endereço</th>
+                  <th scope="col">Status Pedido</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if (pedidos) %}	
+                  {% for pedido in pedidos %}
+                <tr>                 
+                  <td>{{pedido[0]}}</td>
+                  <td>{{pedido[1]}}</td>
+                  <td>{{pedido[2]}}</td>
+                  <td>{{pedido[3].strftime('%d-%m-%Y %H:%M:%S')}}</td>
+                  <td>{{pedido[4]}}</td>
+                  <td>{{pedido[5]}}</td>
+                  <td>{{pedido[6]}}</td>
+                  {% if(pedido[7])%}
+                  <td class="text-danger">Pendente</td>
+                  {%else%}
+                  <td class="text-success">Aprovado</td>
+                  {%endif%}
+                </tr>
+                {%endfor%}
+                {%endif%}
+                
+              </tbody>
+            </table>
+    </div>
+
+
+
+
+      <div class="tab-pane container fade" id="menu1">
+        <div class="row ml-3">
+        <h1 class="content-subhead ml-3">Produtos</h1>
+        
+      </div>
+    </div>
+      
+  </div>
+    
+    
+      
+  </div>
+</div>
+
+  <!-- <div class="pure-u-1 pure-u-lg-2-5">
+    <div class="form-perfil">
+      <form>
+        <div class="form-group colorb">
+          <label for="nome">NOME:</label>
+          <input type="text" class="form-control-plaintext" value="Fulano de tal">
+        </div>
+        <div class="form-group colorb">
+          <label for="nome">CONTATO:</label>
+          <input type="text" class="form-control-plaintext" value="(XX)XXXXX-XXXX">
+        </div>
+        <div class="form-group colorb">
+          <label for="nome">ENDEREÇO:</label>
+          <input type="text" class="form-control-plaintext" value="Crato - Bairro Seminário Rua tal 00">
+        </div>
+      </form>
+      <form>
+        <div class="form-group colorb">
+          <label for="nome">LOJA:</label>
+          <input type="text" class="form-control-plaintext" value="Alfaces C&A">
+        </div>
+        <div class="form-group colorb">
+          <label for="nome">CONTATO COMERCIAL:</label>
+          <input type="text" class="form-control-plaintext" value="(88)XXXX-XXXX">
+        </div>
+        <div class="form-group colorb">
+          <label for="nome">ENDEREÇO:</label>
+          <input type="text" class="form-control-plaintext" value="Crato - Bairro Seminário Rua tal 00">
+        </div>
+      </form>
+    </div>
+  </div>  --> 
+</div>
+
+
+
+{% endblock %}
+
