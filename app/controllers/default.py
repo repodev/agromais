@@ -83,6 +83,16 @@ def meus_pedidos():
             pedidos = recupera_pedidos(id_perfil)
     return render_template('meus_pedidos.html',footer=False,logado=logado,pedidos=pedidos,ocultar = None)
 
+@app.route("/meus_produtos")
+def meus_produtos():
+    logado=None
+    if('id_produtor' in session):
+        logado = session['tipo_conta']
+        id_produtor = session['id_produtor']        
+       # if(recupera_produtos_produtor(id_produtor)):
+        #    pedidos = recupera_pedidos_produtor(id_perfil)
+    return render_template('meus_produtos.html',footer=False,logado=logado,ocultar = None)
+
 @app.route("/valida_pedido/<int:id_produto>", methods=['GET','POST'])
 def valida_pedido(id_produto):
     if(request.method == 'POST'):

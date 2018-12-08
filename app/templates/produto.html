@@ -57,7 +57,7 @@
 				<div class="pure-u-1 pure-u-md-3-8 colorb bordas">
 					<div class="ml-3">
 						<h2>{{produto[1]}}</h2>
-						<h5><a href="produtor.html" style="color: #afafaf;">{{produto[7]}}</a></h5>
+						<h5><a href="{{ url_for('perfil',produtor_id=produto[6] )}}" style="color: #afafaf;">{{produto[7]}}</a></h5>
 						<form>
 							<h3 style="font-weight: 300; color: #2b2a2af0">R$<input type="text" class="form-control-plaintext" value="{{produto[3]}}" readonly="readonly" style="margin-top: -45px; margin-left: 50px;"></h3>
 							<label for="sel1">
