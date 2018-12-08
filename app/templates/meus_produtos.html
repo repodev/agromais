@@ -34,123 +34,96 @@
   <div class="pure-u-1 pure-u-lg-5-5">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" class="colorb" href="#menu1">Meus Produtos</a>
+        <a class="nav-link active" data-toggle="tab" class="colorb" href="#menu">Meus Produtos</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" class="colorb" href="#menu2">Notificações</a>
-      </li>
+     
       
     </ul>
  
     <!-- Tab panes -->
-    <div class="tab-content" style="background-color: white; margin-bottom: 10%;">
-
-
-
-      <div class="tab-pane container fade" id="menu1">
-        <div class="row ml-3">
-        <h1 class="content-subhead ml-3">Produtos</h1>
-        <div class="card-group mb-3">
-            {% if (produtos) %}
-            {% for produto in produtos %}
-          <div class="col-sm-4">
-            <div class="card bg-default cshadow">
-              <a href="{{url_for('produto', id_produto=produto[0])}}">
-                <img class="card-img-top imgc" src="../../static/upload/produtos/{{produto[2]}}" alt="Card image">
-              </a>
-              <div class="card-body ">
-                  <h4 class="card-title cardh4 "><a  class= "produto" href="{{url_for('produto', id_produto=produto[0])}}">{{produto[1]}}</a></h4>
-                  <p class="aprod card-text cardp">Categoria:<a class="linkprod" href="{{ url_for('index',categoria=produto[6] )}}">
-                  {{produto[7]}}</a></p> 
-                  <p class="text-success card-text cardp">R${{produto[3]}}</p>
-                <form class="cardform">
-                  <div class="input-group mb-1 ">
-                    <input type="number" class="form-control cardf" placeholder="0" min="0" maxlength="9" />
-                    <div class="input-group-append">
-                      <button class="btn btn-primary cardb">Comprar</button>
-
-                    </div>  
+    <div class="tab-content colorb" style="background-color: white; margin-bottom: 10%;">
+      {% with messages = get_flashed_messages() %}
+{% if messages %}
+   <div class="alert alert-success text-center" >
+      {% for message in messages %}
+      {{ message }}
+      {% endfor %}
+    </div>
+{% endif %}
+{% endwith %}
+      <div class="tab-pane container active mb-3" id="menu">
+        <div class="">
+          <h1 class="content-subhead ml-3">Produtos</h1>
+          <div class="row">
+            <div class="card-group">
+              
+              {% if (produtos) %}
+              {% for produto in produtos %}
+                
+              <!--produto[9].strftime('%d-%m-%Y %H:%M:%S')-->
+              <div class="col-sm-4">
+                <div class="card bg-default cshadow">
+                  
+                  <a href="{{url_for('produto', id_produto=produto[0])}}">
+                    
+                    <img class="card-img-top" src="static/upload/produtos/{{produto[2]}}" alt="Card image" style="width: 100%; height: 250px;">
+                    
+                  </a>
+              
+                  <div class="card-body ">
+                    <h4 class="card-title cardh4 "><a  class= "produto" href="{{url_for('produto', id_produto=produto[0])}}">{{produto[1]}}</a></h4>
+                <p class="aprod card-text cardp">Categoria:<a class="linkprod" href="{{ url_for('index',categoria=produto[6] )}}">
+                {{produto[7]}}</a></p> 
+               
+                <p class="aprod card-text cardp"><a class="linkprod" href="{{ url_for('perfil',produtor_id=produto[4] )}}">
+                {{produto[5]}}</a></p>
+                
+                    <p class="text-success card-text cardp">R${{produto[3]}}</p>
+                    <form class="cardform" action="" method="POST">
+                      <div class="input-group mb-1 mt-1">
+                        <input type="button" class="btn btn-primary cardb" value="Editar">&nbsp;
+                    
+                        {%if (produto[8]) %}
+                          <input type="submit" class="btn btn-warning cardb" name="desativar" value="Desativar">
+                          
+                        {%else%}
+                          <input type="submit" class="btn btn-success cardb" name="ativar" value="Ativar">
+                        {%endif%}
+                        <input type="hidden" class="btn btn-warning cardb" name="id_produto" value="{{produto[0]}}" >
+                      </div>
+                    </form>
                   </div>
-                </form>
+                </div>
               </div>
+              {% endfor %}
+              {%else%}
+              <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Nenhum produto encontrado!!!</h4>
+                <p>Ei, infelizmente não temos nenhum produto cadastrado em nossa base, você participa de algum programa da
+                  agricultura familiar ou possui plantações sem Agrotóxicos? anuncie seus produtos na nossa plataforma, 
+                  para fazer o cadastro <a href="{{url_for('registro')}}">clique aqui</a>
+                </p>
+                <hr>
+                
+              </div>
+            
+              {% endif %}
+             
+              
             </div>
           </div>
-          {% endfor %}
-          {% endif %}
+        
         </div>
-      </div>
+            
     </div>
-    
-    <div class="tab-pane container fade" id="menu2">
-        <br>
-        <br>
-        <div class="card-group">
-        <div class="card text-center mb-3 mt-3">
-          <div class="card-header colorb">
-            Pedido
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Alface</h5>
-            <p class="card-text">Um cliente fez o pedido de 10 unidades.</p>
-            <a href="#" class="btn btn-success">Aceitar</a>
-            <a href="#" class="btn btn-danger">Rejeitar</a>
-          </div>
-          <div class="card-footer text-muted">
-            2 dias atrás
-          </div>
-          <div class="card text-center mb-3 mt-3">
-          <div class="card-header colorb">
-            Pedido
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Alface</h5>
-            <p class="card-text">Um cliente fez o pedido de 10 unidades.</p>
-            <a href="#" class="btn btn-success">Aceitar</a>
-            <a href="#" class="btn btn-danger">Rejeitar</a>
-          </div>
-          <div class="card-footer text-muted">
-            2 dias atrás
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
+
+
+
       
   </div>
 </div>
 
-  <!-- <div class="pure-u-1 pure-u-lg-2-5">
-    <div class="form-perfil">
-      <form>
-        <div class="form-group colorb">
-          <label for="nome">NOME:</label>
-          <input type="text" class="form-control-plaintext" value="Fulano de tal">
-        </div>
-        <div class="form-group colorb">
-          <label for="nome">CONTATO:</label>
-          <input type="text" class="form-control-plaintext" value="(XX)XXXXX-XXXX">
-        </div>
-        <div class="form-group colorb">
-          <label for="nome">ENDEREÇO:</label>
-          <input type="text" class="form-control-plaintext" value="Crato - Bairro Seminário Rua tal 00">
-        </div>
-      </form>
-      <form>
-        <div class="form-group colorb">
-          <label for="nome">LOJA:</label>
-          <input type="text" class="form-control-plaintext" value="Alfaces C&A">
-        </div>
-        <div class="form-group colorb">
-          <label for="nome">CONTATO COMERCIAL:</label>
-          <input type="text" class="form-control-plaintext" value="(88)XXXX-XXXX">
-        </div>
-        <div class="form-group colorb">
-          <label for="nome">ENDEREÇO:</label>
-          <input type="text" class="form-control-plaintext" value="Crato - Bairro Seminário Rua tal 00">
-        </div>
-      </form>
-    </div>
-  </div>  --> 
+ 
 </div>
 
 

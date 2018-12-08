@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 <!--Inicio Head -->
-{% block title %}Meus pedidos - {{ super() }}{% endblock %}
+{% block title %}Historico pedidos - {{ super() }}{% endblock %}
 {% block head %}
 <!--Herda conteudo da head sem sobrescrer-->
 {{ super() }}
@@ -69,8 +69,10 @@
                   <td>{{pedido[4]}}</td>
                   <td>{{pedido[5]}}</td>
                   <td>{{pedido[6]}}</td>
-                  {% if(pedido[7])%}
-                  <td class="text-danger">Pendente</td>
+                  {% if(pedido[7] == 'P')%}
+                  <td class="text-warning">Pendente</td>
+                  {% elif(pedido[7] == 'N')%}
+                  <td class="text-danger">Negado*</td>
                   {%else%}
                   <td class="text-success">Aprovado</td>
                   {%endif%}
@@ -79,7 +81,9 @@
                 {%endif%}
                 
               </tbody>
+             
             </table>
+            *Caso seu pedido apareça com status (NEGADO), entre em contato com o produtor para saber o motivo.
     </div>
 
 

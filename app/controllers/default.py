@@ -9,7 +9,7 @@ from .class_Errors import *
 from .class_Produto import *
 from .class_PerfilProdutor import *
 
-from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos,registra_pedido,recupera_pedidos
+from app.models.tables import inserir_perfil,verifica_cadastro,inserir_perfil_produtor,recupera_id,inserir_produto,recupera_produtos,gera_nome_imagem,salva_imagem,lista_categorias,recupera_produtos_categoria,recupera_um_produto,perfil_produtor_publico,perfil_produtor_produtos,registra_pedido,recupera_pedidos,recupera_vendas,atualiza_produto,recupera_meu_perfil,pesquisa_produto
 
 @app.route("/")
 def index():
@@ -22,9 +22,15 @@ def index():
     if(request.args.get("categoria")):
         id_categoria=request.args.get("categoria")
         produtos=recupera_produtos_categoria(int(id_categoria))
+        
+    elif(request.args.get("s")):
+        consulta=request.args.get("s")
+    
+        produtos=pesquisa_produto(consulta.upper())
 
     elif(recupera_produtos()):
         produtos=recupera_produtos()
+
     else:
         produtos = None
     
@@ -72,8 +78,8 @@ def produto(id_produto):
 
     return render_template('produto.html',footer=False,logado=logado,ocultar = b_cadastrar, produto=info_produto)
 
-@app.route("/meus_pedidos")
-def meus_pedidos():
+@app.route("/historico_pedidos")
+def historico_pedidos():
     logado=None
     pedidos = None
     if('tipo_conta' in session):
@@ -81,17 +87,41 @@ def meus_pedidos():
         id_perfil = session['id_perfil']        
         if(recupera_pedidos(id_perfil)):
             pedidos = recupera_pedidos(id_perfil)
-    return render_template('meus_pedidos.html',footer=False,logado=logado,pedidos=pedidos,ocultar = None)
+    return render_template('historico_pedidos.html',footer=False,logado=logado,pedidos=pedidos,ocultar = None)
 
-@app.route("/meus_produtos")
-def meus_produtos():
+@app.route("/vendas")
+def vendas():
     logado=None
+    vendas = None
     if('id_produtor' in session):
         logado = session['tipo_conta']
         id_produtor = session['id_produtor']        
-       # if(recupera_produtos_produtor(id_produtor)):
-        #    pedidos = recupera_pedidos_produtor(id_perfil)
-    return render_template('meus_produtos.html',footer=False,logado=logado,ocultar = None)
+        if(recupera_vendas(id_produtor)):
+            vendas = recupera_vendas(id_produtor)
+    return render_template('vendas.html',footer=False,logado=logado,vendas=vendas,ocultar = None)
+
+@app.route("/meus_produtos", methods=['GET','POST'])
+def meus_produtos():
+    logado=None
+    produtos= None
+    if('id_produtor' in session):
+        logado = session['tipo_conta']
+        id_produtor = session['id_produtor']
+        if(perfil_produtor_produtos(id_produtor,'todos')):
+            produtos = perfil_produtor_produtos(id_produtor,'todos')  
+        if(request.method == 'POST'):
+            id_produto = request.form['id_produto']
+            if('desativar' in request.form):
+                atualiza_produto('False', id_produto)
+                flash("Produto desativado com sucesso!!!")
+                return redirect(url_for('meus_produtos'))            
+            else:
+                atualiza_produto('True', id_produto)  
+                flash("Produto ativado com sucesso!!!")
+                return redirect(url_for('meus_produtos')) 
+                 
+   
+    return render_template('meus_produtos.html',footer=False,produtos=produtos,logado=logado,ocultar = None)
 
 @app.route("/valida_pedido/<int:id_produto>", methods=['GET','POST'])
 def valida_pedido(id_produto):
@@ -131,7 +161,7 @@ def confirma_pedido():
             session.pop('unidade_pedido',None)
             session.pop('unidade_valor',None)
             
-            return redirect(url_for('meus_pedidos'))
+            return redirect(url_for('historico_pedidos'))
     else:
             return redirect(url_for('login'))
     
@@ -281,12 +311,29 @@ def perfil(produtor_id):
         logado = session['tipo_conta']
     if(perfil_produtor_publico(produtor_id)):
         perfil = perfil_produtor_publico(produtor_id)
-    if(perfil_produtor_produtos(produtor_id)):
-        produtos = perfil_produtor_produtos(produtor_id)
+    if(perfil_produtor_produtos(produtor_id,None)):
+        produtos = perfil_produtor_produtos(produtor_id,None)
         return render_template('produtor.html', info=perfil, logado=logado, footer=True, produtos=produtos)
     else:
         return "Este produtor não existe"
 
+
+@app.route("/meu_perfil")
+def meu_perfil():
+    logado = None
+    perfil = None
+    if('id_produtor' in session):
+        id_produtor = session['id_produtor']
+        id_perfil = session['id_perfil']
+        logado = session['tipo_conta']
+        perfil = recupera_meu_perfil(id_perfil,id_produtor)
+    elif('id_perfil' in session):
+        id_perfil = session['id_perfil']
+        logado = session['tipo_conta']
+        perfil = recupera_meu_perfil(id_perfil,False)
+    else:
+        return "Este produtor não existe"
+    return render_template('meu_perfil.html', info=perfil, logado=logado, footer=True)
 
 @app.route("/sobre/")
 def sobre():
@@ -296,3 +343,4 @@ def sobre():
 @app.errorhandler(404)
 def page_not_found(error):
     return "<h1 style=text-align:center;>Estamos esperando a chuva!</h1>", 404
+

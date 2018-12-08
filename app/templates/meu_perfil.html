@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+<!--Inicio Head -->
+{% block title %}{{info[1]}} - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+{{ super() }}
+
+	<script type="text/javascript">
+		function goFocus(elementID){
+
+		document.getElementById(elementID).focus();
+
+	}
+	</script>
+
+
+{% endblock %}
+
+{% block content %}
+<body onload="goFocus('search')">
+
+<!-- Inicio nav - MENU -->
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+<!-- Fim nav - MENU -->
+
+
+<div class="pure-g ml-3">
+
+
+  <div class="pure-u-1 pure-u-lg-5-5">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" class="colorb" href="#menu">Informações</a>
+      </li>
+     
+      
+    </ul>
+ 
+    <!-- Tab panes -->
+    {% if(info)%} 
+    {% if logado == 'produtor' %}
+      
+    <div class="tab-content" style="background-color: white; margin-bottom: 10%;">
+      
+      <div class="tab-pane container active mb-3" id="menu">
+        <br>
+        <div class="form-perfil ml-3">
+        
+          <div class="perfil">
+                  <h1 class="content-subhead" style="margin-top: -1PX;color: #afafaf;">Loja</h1>
+            </div>
+          <form class="ml-3">
+            <div class="pure-u-1 pure-u-lg-2-5"><img src="../../static/upload/produtores/{{info[13]}}"></div>
+            
+            <br><br>
+            <div class="form-group colorb">
+              <label for="nome"><b>NOME LOJA:</b></label>
+              <input type="text" class="form-control-plaintext" value="{{ info[8] }}" disabled="disabled">
+              
+            </div>
+            
+            <div class="form-group colorb">
+                {%if(info[9])%}                
+               <label for="nome"><b>CNPJ:</b></label>
+               <input type="text" class="form-control-plaintext" value="{{ info[9] }}" disabled="disabled">
+                 
+               {%endif%}
+            </div>
+            
+            <div class="form-group colorb">
+                <label for="nome"><b>DESCRIÇÃO:</b></label>
+                
+                   <p class="pre" style="color: #000000 !important;">{{info[10]}}</p>
+               
+              </div>
+            <div class="form-group colorb">
+              <label for="nome"><b>CONTATO COMERCIAL:</b></label>
+              <input type="text" class="form-control-plaintext" value="{{info[11]}}" disabled="disabled">
+            </div>
+            <div class="form-group colorb">
+              <label for="nome"><b>ENDEREÇO:</b></label>
+              <input type="text" class="form-control-plaintext" value="{{info[12]}}" disabled="disabled">
+            </div>
+            
+          </form>
+
+
+
+          <div class="perfil">
+              <h1 class="content-subhead" style="margin-top: -1PX;color: #afafaf;">Perfil</h1>
+        </div>
+      <form class="ml-3">
+ 
+        <div class="form-group colorb">
+          <label for="nome"><b>NOME:</b></label>
+          <input type="text" class="form-control-plaintext" value="{{ info[0] }}" disabled="disabled">
+          
+        </div>
+        
+        <div class="form-group colorb">
+                    
+           <label for="nome"><b>SOBRENOME:</b></label>
+           <input type="text" class="form-control-plaintext" value="{{ info[1] }}" disabled="disabled">
+             
+      
+        </div>
+        
+        <div class="form-group colorb">
+            <label for="nome"><b>CONTATO:</b></label>
+            
+               <p class="pre" style="color: #000000 !important;">{{info[2]}}</p>
+           
+          </div>
+        <div class="form-group colorb">
+          <label for="nome"><b>CIDADE:</b></label>
+          <input type="text" class="form-control-plaintext" value="{{info[3]}}" disabled="disabled">
+        </div>
+        <div class="form-group colorb">
+          <label for="nome"><b>BAIRRO:</b></label>
+          <input type="text" class="form-control-plaintext" value="{{info[4]}}" disabled="disabled">
+        </div>
+        <div class="form-group colorb">
+            <label for="nome"><b>LOGRADOURO:</b></label>
+            <input type="text" class="form-control-plaintext" value="{{info[5]}}" disabled="disabled">
+          </div>
+          <div class="form-group colorb">
+              <label for="nome"><b>CPF:</b></label>
+              <input type="text" class="form-control-plaintext" value="{{info[6]}}" disabled="disabled">
+            </div>
+            <div class="form-group colorb">
+                <label for="nome"><b>EMAIL:</b></label>
+                <input type="text" class="form-control-plaintext" value="{{info[7]}}" disabled="disabled">
+              </div>
+      </form>
+      </div>
+      
+    </div>
+
+    
+
+
+   
+      
+  </div>
+   {%else%}
+
+   <div class="tab-content" style="background-color: white; margin-bottom: 10%;">
+      
+      <div class="tab-pane container active mb-3" id="menu">
+        <br>
+        <div class="form-perfil ml-3">
+        
+
+
+
+          <div class="perfil">
+              <h1 class="content-subhead" style="margin-top: -1PX;color: #afafaf;">Perfil</h1>
+        </div>
+      <form class="ml-3">
+ 
+        <div class="form-group colorb">
+          <label for="nome"><b>NOME:</b></label>
+          <input type="text" class="form-control-plaintext" value="{{ info[0] }}" disabled="disabled">
+          
+        </div>
+        
+        <div class="form-group colorb">
+                    
+           <label for="nome"><b>SOBRENOME:</b></label>
+           <input type="text" class="form-control-plaintext" value="{{ info[1] }}" disabled="disabled">
+             
+      
+        </div>
+        
+        <div class="form-group colorb">
+            <label for="nome"><b>CONTATO:</b></label>
+            
+               <p class="pre" style="color: #000000 !important;">{{info[2]}}</p>
+           
+          </div>
+        <div class="form-group colorb">
+          <label for="nome"><b>CIDADE:</b></label>
+          <input type="text" class="form-control-plaintext" value="{{info[3]}}" disabled="disabled">
+        </div>
+        <div class="form-group colorb">
+          <label for="nome"><b>BAIRRO:</b></label>
+          <input type="text" class="form-control-plaintext" value="{{info[4]}}" disabled="disabled">
+        </div>
+        <div class="form-group colorb">
+            <label for="nome"><b>LOGRADOURO:</b></label>
+            <input type="text" class="form-control-plaintext" value="{{info[5]}}" disabled="disabled">
+          </div>
+          <div class="form-group colorb">
+              <label for="nome"><b>CPF:</b></label>
+              <input type="text" class="form-control-plaintext" value="{{info[6]}}" disabled="disabled">
+            </div>
+            <div class="form-group colorb">
+                <label for="nome"><b>EMAIL:</b></label>
+                <input type="text" class="form-control-plaintext" value="{{info[7]}}" disabled="disabled">
+              </div>
+      </form>
+      </div>
+      
+    </div>
+
+    
+
+
+   
+      
+  </div>
+   {%endif%}
+   {%endif%}
+</div>
+
+ 
+</div>
+
+{% endblock %}
+

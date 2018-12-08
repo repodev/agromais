@@ -48,9 +48,9 @@
   
 
     <div class="navbar-nav mx-auto w-100 order-2">
-      <form class="form-inline">
+      <form class="form-inline" method="get">
         <div class="input-group ml-3">
-          <input type="text" class="form-control cshadow btncshadow" placeholder="Buscar" style="border-color: #28A745; width: 360px; max-width: 200px;">
+          <input type="text" class="form-control cshadow btncshadow" name='s' placeholder="Buscar" style="border-color: #28A745; width: 360px; max-width: 200px;">
           <div class="input-group-append">
             <button class="btn btn-outline-success cshadow btncshadow mb-1" type="submit" style="font-size: 0px;"><i class="material-icons">
             search</i></button>
@@ -74,11 +74,11 @@
                     CONTA
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="produtor.html">
+                    <a class="dropdown-item" href="/meu_perfil">
                       <i class="material-icons">perm_identity</i>Meu Perfil</a>
                     <div class="dropdown-divider mt-3 mb-3"></div>
-                    <a class="dropdown-item" href="/meus_pedidos">
-                      <i class="material-icons" >apps</i>Meus Pedidos</a>
+                    <a class="dropdown-item" href="/historico_pedidos">
+                      <i class="material-icons" >apps</i>Historico Pedidos</a>
                       <a class="dropdown-item" href="{{ url_for('logout')}}">
                             Sair</a>
               
@@ -96,11 +96,13 @@
                     CONTA
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="produtor.html">
+                    <a class="dropdown-item" href="/meu_perfil">
                       <i class="material-icons">perm_identity</i>Meu Perfil</a>
                     <div class="dropdown-divider mt-3 mb-3"></div>
-                    <a class="dropdown-item" href="/meus_pedidos">
-                        <i class="material-icons" >apps</i>Meus Pedidos</a>
+                    <a class="dropdown-item" href="/historico_pedidos">
+                      <i class="material-icons" >apps</i>Historico Pedidos</a>
+                    <a class="dropdown-item" href="/vendas">
+                        <i class="material-icons" >apps</i>Vendas</a>
                     <a class="dropdown-item" href="{{ url_for('meus_produtos')}}">
                       <i class="material-icons" >apps</i>Meus Produtos</a>
                       <a class="dropdown-item" href="{{ url_for('logout')}}">

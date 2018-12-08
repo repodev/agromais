@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+<!--Inicio Head -->
+{% block title %}Vendas - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+{{ super() }}
+
+	<script type="text/javascript">
+		function goFocus(elementID){
+
+		document.getElementById(elementID).focus();
+
+	}
+	</script>
+
+
+{% endblock %}
+
+{% block content %}
+<body onload="goFocus('search')">
+
+<!-- Inicio nav - MENU -->
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+<!-- Fim nav - MENU -->
+
+
+
+<div class="pure-g ml-3">
+
+	<div class="pure-u-1 pure-u-lg-5-5">
+    
+	</div>
+  <div class="pure-u-1 pure-u-lg-5-5">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" class="colorb" href="#menu">Informações</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" class="colorb" href="#menu2">Notificações</a>
+      </li>
+      
+    </ul>
+ 
+    <!-- Tab panes -->
+    <div class="tab-content colorb" style="background-color: white; margin-bottom: 10%;">
+      
+      <div class="tab-pane container active mb-3" id="menu">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                
+                  <th scope="col">Nome Produto</th>
+                  <th scope="col">Quantidade</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Data de Pedido</th>                
+                  <th scope="col">Nome Comprador</th>
+                  <th scope="col">Contato</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Endereço</th>                  
+                  <th scope="col">Aprovação</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if (vendas) %}	
+                  {% for venda in vendas %}
+                <tr>                 
+                  <td>{{venda[0]}}</td>
+                  <td>{{venda[1]}}</td>
+                  <td>R$ {{venda[2]}}</td>
+                  <td>{{venda[3].strftime('%d-%m-%Y %H:%M:%S')}}</td>
+                 
+                  <td>{{venda[5]}}</td>
+                  <td>{{venda[6]}}</td>
+                  <td>{{venda[7]}}</td>
+                  <td>{{venda[8]}}</td>
+                  {% if(venda[9] == 'P')%}
+                  <td class="text-warning">Pendente</td>
+                  {% elif(venda[9] == 'N')%}
+                  <td class="text-danger">Negado*</td>
+                  {%else%}
+                  <td class="text-success">Aprovado</td>
+                  {%endif%}
+                </tr>
+                {%endfor%}
+                {%endif%}
+                
+              </tbody>
+             
+            </table>
+            
+    </div>
+
+    <div class="tab-pane container fade" id="menu2">
+      <br>
+      <br>
+      <div class="card-group">
+      <div class="card text-center mb-3 mt-3">
+        <div class="card-header colorb">
+          Pedido
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Alface</h5>
+          <p class="card-text">Um cliente fez o pedido de 10 unidades.</p>
+          <a href="#" class="btn btn-success">Aceitar</a>
+          <a href="#" class="btn btn-danger">Rejeitar</a>
+        </div>
+        <div class="card-footer text-muted">
+          2 dias atrás
+        </div>
+        <div class="card text-center mb-3 mt-3">
+        <div class="card-header colorb">
+          Pedido
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Alface</h5>
+          <p class="card-text">Um cliente fez o pedido de 10 unidades.</p>
+          <a href="#" class="btn btn-success">Aceitar</a>
+          <a href="#" class="btn btn-danger">Rejeitar</a>
+        </div>
+        <div class="card-footer text-muted">
+          2 dias atrás
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+      
+  </div>
+    
+    
+      
+  </div>
+</div>
+
+  <!-- <div class="pure-u-1 pure-u-lg-2-5">
+    <div class="form-perfil">
+      <form>
+        <div class="form-group colorb">
+          <label for="nome">NOME:</label>
+          <input type="text" class="form-control-plaintext" value="Fulano de tal">
+        </div>
+        <div class="form-group colorb">
+          <label for="nome">CONTATO:</label>
+          <input type="text" class="form-control-plaintext" value="(XX)XXXXX-XXXX">
+        </div>
+        <div class="form-group colorb">
+          <label for="nome">ENDEREÇO:</label>
+          <input type="text" class="form-control-plaintext" value="Crato - Bairro Seminário Rua tal 00">
+        </div>
+      </form>
+      <form>
+        <div class="form-group colorb">
+          <label for="nome">LOJA:</label>
+          <input type="text" class="form-control-plaintext" value="Alfaces C&A">
+        </div>
+        <div class="form-group colorb">
+          <label for="nome">CONTATO COMERCIAL:</label>
+          <input type="text" class="form-control-plaintext" value="(88)XXXX-XXXX">
+        </div>
+        <div class="form-group colorb">
+          <label for="nome">ENDEREÇO:</label>
+          <input type="text" class="form-control-plaintext" value="Crato - Bairro Seminário Rua tal 00">
+        </div>
+      </form>
+    </div>
+  </div>  --> 
+</div>
+
+
+
+{% endblock %}
+
