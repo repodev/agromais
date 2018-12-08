@@ -121,7 +121,7 @@ def confirma_pedido():
             session.pop('unidade_pedido',None)
             session.pop('unidade_valor',None)
             
-            return "comprado com sucesso"
+            return redirect(url_for('meus_pedidos'))
     else:
             return redirect(url_for('login'))
     
