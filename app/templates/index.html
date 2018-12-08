@@ -62,7 +62,7 @@
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 120px;
+    top: 100px;
     left: 0;
     background-color: #f8f9fa;
     overflow-x: hidden;
@@ -100,7 +100,10 @@
 		max-height: 100%;
 		width: auto;
 		height: auto;
-		margin-bottom: 2px;
+		margin-bottom: 5px;
+	}
+	.cardb{
+		margin-left: 75%;
 	}
 
 	@media only screen and (max-width: 720px){
@@ -188,11 +191,7 @@
 							<p class="text-success card-text cardp">R${{produto[3]}}</p>
               <form class="cardform">
                 <div class="input-group mb-1 mt-1">
-									<input type="number" class="form-control cardf" placeholder="0" min="0" maxlength="9" />
-									  
-                  <div class="input-group-append">
-                    <button class="btn btn-primary cardb">Comprar</button>
-                  </div>  
+                    <a href="{{url_for('produto', id_produto=produto[0])}}"><input type="button" class="btn btn-primary cardb" value="Comprar"></a>
                 </div>
               </form>
     		    </div>
