@@ -55,7 +55,7 @@
 			<div class="content pure-u-1 pure-u-md-4-4 ml-3">
 			<form id="register-form" method="post" enctype="multipart/form-data">
 					<div class="form-group">
-					    <input type="text" name="nome" class="form-control" id="nome" required="required" placeholder="Nome do produto">
+					    <input type="text" name="nome" maxlength="20" class="form-control" id="nome" required="required" placeholder="Nome do produto">
 					</div>
 					<div class="form-group">
 					  <label for="sel1" class="content-subhead">Categoria:</label>
@@ -70,10 +70,10 @@
 					  
 					</div>
 					<div class="form-group">
-					    <input type="text" name="subcategoria" class="form-control" id="sucategoria" placeholder="Subcategoria" required="required">
+					    <input type="text" name="subcategoria" maxlength="30" class="form-control" id="sucategoria" placeholder="Subcategoria" required="required">
 					</div>
 					<div class="form-group">
-						<input type="text" name="preco" class="form-control" required="required" value="" id="preco" min="0" maxlength="10" placeholder="Preço do produto" > 
+						<input type="tel" name="preco" class="form-control" required="required" value="" id="preco" min="0" maxlength="10" placeholder="Preço do produto" > 
 					</div>
 					<div class="form-group">
 						<input type="number" name="estoque" class="form-control" required="required" value="" id="estoque" min="0" maxlength="10" placeholder="Estoque da quantidade de produtos disponíveis" > 
@@ -84,7 +84,7 @@
 					</div>
 					<div class="form-group colorb">
 					  <label for="desc" class="colorb margint2 content-subhead">Descrição:</label>
-					  <textarea class="form-control noresize" rows="5" id="desc" name="descricao_produto"></textarea>
+					  <textarea class="form-control noresize" rows="5" maxlength="300" id="desc" name="descricao_produto"></textarea>
 					</div>					
 					<button type="submit" class="btn btn-outline-success floatr marginb5 cshadow">ANUNCIAR</button>
 				</form>
@@ -95,6 +95,7 @@
 </div>	
 <script>
 $(document).ready(function(){
+	$('#preco').mask('0000.00', {reverse: true});
 	function register_form(){
 	  var form_data = new FormData($('#register-form')[0]);
 		$.ajax({
@@ -134,5 +135,5 @@ $(document).ready(function(){
 
 	});
 	</script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
 {% endblock %}

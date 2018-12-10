@@ -76,7 +76,14 @@
                 <input type="hidden" class="form-control-plaintext" value="{{produto[3]}}" name="preco">
                 <input type="hidden" class="form-control-plaintext" value="{{produto[4]}}" name="unidade_b">
                 <input type="hidden" class="form-control-plaintext" value="{{produto[6]}}" name="id_produtor">
-								<button type="submit" id="val" class="btn btn-primary" data-toggle="modal" data-target="#comp" style="margin-top: 30px; margin-right: 30%;" >Quero este produto!</button>
+                {%if(session['id_produtor'] == produto[6])%}
+                <br>
+                <br>
+                <button class="btn btn-danger" style="margin-top: 30px; margin-right: 30%;">Você não pode comprar esse produto!</button>
+                {%else%}
+                <button type="submit" id="val" class="btn btn-primary" data-toggle="modal" data-target="#comp" style="margin-top: 30px; margin-right: 30%;" >Quero este produto!</button>
+                {%endif%}
+								
 							</div>
 							
 								              
