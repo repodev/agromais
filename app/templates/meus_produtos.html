@@ -43,12 +43,22 @@
     <!-- Tab panes -->
     <div class="tab-content colorb" style="background-color: white; margin-bottom: 10%;">
       {% with messages = get_flashed_messages() %}
-{% if messages %}
-   <div class="alert alert-success text-center" >
+{% if messages  %}
+
       {% for message in messages %}
-      {{ message }}
+
+        {% if message == "Este produto não foi ativado, o estoque é igual a 0 !!!"%}
+        <div class="alert alert-danger text-center" >
+        {{ message }}
+      </div>
+        {%else%}
+        <div class="alert alert-success text-center" >
+            {{ message }}
+          </div>
+        {% endif %}
+        
       {% endfor %}
-    </div>
+    
 {% endif %}
 {% endwith %}
       <div class="tab-pane container active mb-3" id="menu">
@@ -79,10 +89,10 @@
                 {{produto[5]}}</a></p>
                 
                     <p class="text-success card-text cardp">R${{produto[3]}}</p>
-                    <form class="cardform" action="" method="POST">
-                      <div class="input-group mb-1 mt-1">
-                        <input type="button" class="btn btn-primary cardb" value="Editar">&nbsp;
                     
+                    <form class="cardform" action="" method="POST">
+                      <div class="input-group">                       
+                          <a href="{{url_for('edita_produto', id_produto=produto[0])}}" class="btn btn-info cardb">Editar</a>
                         {%if (produto[8]) %}
                           <input type="submit" class="btn btn-warning cardb" name="desativar" value="Desativar">
                           

@@ -30,6 +30,14 @@ class ErrorCadProduto(Errors):
     def reg_desconhecido(self):
         return "Erro ao cadastrar seu produto, por favor tente novamente."
 
+class ErrorAtualizaProduto(Errors):
+
+    def reg_duplicado(self):
+        return "Já existe um produto com essas informações!"
+    
+    def reg_desconhecido(self):
+        return "Erro ao atualizar seu produto, por favor tente novamente."
+
 class ErroCadLogin(Errors):
     
     def reg_desconhecido(self):

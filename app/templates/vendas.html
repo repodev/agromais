@@ -28,7 +28,15 @@
 
 
 <div class="pure-g ml-3">
-
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+       <div class="alert alert-success text-center" >
+          {% for message in messages %}
+          {{ message }}
+          {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
 	<div class="pure-u-1 pure-u-lg-5-5">
     
 	</div>
@@ -92,37 +100,41 @@
             
     </div>
 
+    
     <div class="tab-pane container fade" id="menu2">
       <br>
       <br>
       <div class="card-group">
+        
       <div class="card text-center mb-3 mt-3">
+          {% if (pedidos) %}
+          
+          {% for pedido in pedidos %}
         <div class="card-header colorb">
-          Pedido
+          Pedido {{ loop.index }}
         </div>
+   
         <div class="card-body">
-          <h5 class="card-title">Alface</h5>
-          <p class="card-text">Um cliente fez o pedido de 10 unidades.</p>
-          <a href="#" class="btn btn-success">Aceitar</a>
-          <a href="#" class="btn btn-danger">Rejeitar</a>
+          <h5 class="card-title">{{pedido[5]}}</h5>
+          <p class="card-text">Um cliente fez o pedido de {{pedido[1]}} unidades, no valor de R${{pedido[2]}}</p>
+          <form action="" method="post">
+            <input type="submit" class="btn btn-success" name="aceitar" value="aceitar">
+            <input type="submit" class="btn btn-danger"  name="negar"  value="negar">
+            <input type="hidden" class="btn btn-danger"  name="id_pedido"  value="{{pedido[0]}}">
+            <input type="hidden" class="btn btn-danger"  name="quantidade"  value="{{pedido[1]}}">
+        
+          </form>
+          
         </div>
         <div class="card-footer text-muted">
-          2 dias atrás
+            {{pedido[4].strftime('%d-%m-%Y %H:%M:%S')}}
         </div>
-        <div class="card text-center mb-3 mt-3">
-        <div class="card-header colorb">
-          Pedido
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Alface</h5>
-          <p class="card-text">Um cliente fez o pedido de 10 unidades.</p>
-          <a href="#" class="btn btn-success">Aceitar</a>
-          <a href="#" class="btn btn-danger">Rejeitar</a>
-        </div>
-        <div class="card-footer text-muted">
-          2 dias atrás
-        </div>
-      </div>
+        <br>
+        <br>
+       
+        {%endfor%}
+        {%endif%}
+      
     </div>
   </div>
   </div>

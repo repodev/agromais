@@ -1,0 +1,144 @@
+<!--Extend conteudo do base html-->
+{% extends "base.html" %}
+
+<!--Inicio Head -->
+{% block title %}Editar produto - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+
+{{ super() }}
+
+	<script>
+		function formatar(mascara, documento){
+		  var i = documento.value.length;
+		  var saida = mascara.substring(0,1);
+		  var texto = mascara.substring(i)
+		  
+		  if (texto.substring(0,1) != saida){
+		            documento.value += texto.substring(0,1);
+		  }
+		}
+	</script>
+	<script type="text/javascript">
+		function goFocus(elementID){
+
+		document.getElementById(elementID).focus();
+
+	}
+	</script>
+	
+{% endblock %}
+<body onload="goFocus('nome')">
+{% block content %}
+
+<!-- Inicio nav - MENU -->
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+<!-- Fim nav - MENU -->
+
+
+<div class="container">
+
+	<div class="pure-g">
+		<header>
+			<div class="content pure-u-1 pure-u-md-2-3 ml-3">
+				<div>
+				<div class="posts">
+					<h1 class="content-subhead">Edite seu produto</h1>
+				</div>
+				</div>
+			</div>
+		</header>
+
+		<section>
+			<div class="content pure-u-1 pure-u-md-4-4 ml-3">
+				{%if(produto)%}
+			<form id="register-form" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+					    <input type="text" name="nome" class="form-control" id="nome" required="required" placeholder="Nome do produto" value="{{produto[1]}}">
+					</div>
+					<div class="form-group">
+					  <label for="sel1" class="content-subhead">Categoria:</label>
+					  				  
+					  <select class="form-control" id="categ" name="categoria">
+						{% if (categorias) %}	
+						{% for categoria in categorias %}
+
+						<option value="{{categoria[0]}}" {% if(produto[2] == categoria[0]) %}selected{%endif%}>{{categoria[1]}}</option>
+						{% endfor %}
+						{% endif %}
+					  </select>
+					  
+					</div>
+					<div class="form-group">
+					    <input type="text" name="subcategoria" class="form-control" id="sucategoria" placeholder="Subcategoria" value="{{produto[3]}}" required="required">
+					</div>
+					<div class="form-group">
+							
+						<input type="text" name="preco"  class="form-control "  required="required" value="{{ '%.2f'|format(produto[4]|float) }}'" id="preco" maxlength="7" placeholder="Preço do produto" > 
+					</div>
+					<div class="form-group">
+						<input type="number" name="estoque" class="form-control" required="required"  id="estoque" min="0" maxlength="10" value="{{produto[5]}}" placeholder="Estoque da quantidade de produtos disponíveis" > 
+					</div>
+					<div class="form-group custom-file">
+						<input type="file" class="custom-file-input" id="customFile" name="foto_produto">
+						<label class="custom-file-label" for="customFile">Selecionar imagem para anuncio</label>
+					</div>
+					<div class="form-group colorb">
+					  <label for="desc" class="colorb margint2 content-subhead">Descrição:</label>
+					  <textarea class="form-control noresize" rows="5" id="desc" name="descricao_produto"></textarea>
+					</div>					
+					<button type="submit" class="btn btn-outline-success floatr marginb5 cshadow">ANUNCIAR</button>
+				</form>
+				{%endif%}
+		</div>
+		</section>
+		
+	</div>
+</div>	
+<script>
+$(document).ready(function(){
+	$('#preco').mask("####.##")
+	function register_form(){
+	  var form_data = new FormData($('#register-form')[0]);
+		$.ajax({
+				url: '/confirma_edicao_produto',
+				type: 'POST',
+				data: form_data,
+            	contentType: false,
+            	cache: false,
+            	processData: false,
+				success: function(response) {						
+					if(response.status == '2'){
+						$("div.result").html('<div class="alert alert-danger"><button type="button" class="close">×</button>'+response.erro+'</div>');
+						$("html").animate({ scrollTop: 0 }, 600);
+
+						$('.alert .close').on("click", function(e){
+						$(this).parent().fadeTo(500, 0).slideUp(500);
+						});
+
+					}else if(response.status == '1'){
+						window.location.replace(response.url)
+					}
+
+
+					},
+				error: function(error) {
+					console.log(error);
+				}
+				});
+			}
+		$("#register-form").submit(function(event){
+			event.preventDefault();
+			register_form()
+
+		});
+
+ 
+
+	});
+	
+	</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+{% endblock %}
