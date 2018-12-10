@@ -1,3 +1,15 @@
+CREATE TABLE public.perfil_produtor (
+  id_produtor serial NOT NULL,
+  nome_loja varchar(30) NOT NULL,
+  cnpj varchar(18) NULL,
+  descricao_loja varchar(300) NULL,
+  contato_comercial varchar(16) NOT NULL,
+  endereco_comercial varchar(50) NULL,
+  foto_loja varchar(400) DEFAULT NULL,
+  UNIQUE (cnpj),
+  CONSTRAINT perfil_produtor_pkey PRIMARY KEY (id_produtor)
+);
+
 CREATE TABLE public.perfil (
   id serial NOT NULL,
   nome varchar(10) NOT NULL,
@@ -19,17 +31,7 @@ CREATE TABLE public.perfil (
 
 
 
-CREATE TABLE public.perfil_produtor (
-  id_produtor serial NOT NULL,
-  nome_loja varchar(30) NOT NULL,
-  cnpj varchar(18) NULL,
-  descricao_loja varchar(300) NULL,
-  contato_comercial varchar(16) NOT NULL,
-  endereco_comercial varchar(50) NULL,
-  foto_loja varchar(400) DEFAULT NULL,
-  UNIQUE (cnpj),
-  CONSTRAINT perfil_produtor_pkey PRIMARY KEY (id_produtor)
-);
+
 CREATE TABLE public.categoria (
   id_categoria serial NOT NULL,
   nome_categoria varchar(30) NOT NULL,

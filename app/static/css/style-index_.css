@@ -149,6 +149,10 @@ h5,h6{
   color: black;
    
 }
+.pre{
+  white-space: normal;
+  clear: both;
+}
 .content-subhead {
     text-transform: uppercase;
     color: #aaa;

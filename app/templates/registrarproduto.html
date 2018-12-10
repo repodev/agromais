@@ -53,6 +53,7 @@
 
 		<section>
 			<div class="content pure-u-1 pure-u-md-4-4 ml-3">
+				<div class="result"></div>
 			<form id="register-form" method="post" enctype="multipart/form-data">
 					<div class="form-group">
 					    <input type="text" name="nome" maxlength="20" class="form-control" id="nome" required="required" placeholder="Nome do produto">
@@ -79,7 +80,9 @@
 						<input type="number" name="estoque" class="form-control" required="required" value="" id="estoque" min="0" maxlength="10" placeholder="Estoque da quantidade de produtos disponíveis" > 
 					</div>
 					<div class="form-group custom-file">
+							
 						<input type="file" class="custom-file-input" id="customFile" name="foto_produto">
+						<p class="colorb" style="color:red;">Arquivos permitidos (.jpg - .jpeg - .png)</p>
 						<label class="custom-file-label" for="customFile">Selecionar imagem para anuncio</label>
 					</div>
 					<div class="form-group colorb">
@@ -107,7 +110,7 @@ $(document).ready(function(){
             	processData: false,
 				success: function(response) {						
 					if(response.status == '2'){
-						$("div.result").html('<div class="alert alert-danger"><button type="button" class="close">×</button>'+response.erro+'</div>');
+						$("div.result").html('<div class="alert alert-danger"><button type="button" class="close">×</button>Para finalizar o cadastro você precisa enviar uma foto do produto!</div>');
 						$("html").animate({ scrollTop: 0 }, 600);
 
 						$('.alert .close').on("click", function(e){
@@ -116,6 +119,13 @@ $(document).ready(function(){
 
 					}else if(response.status == '1'){
 						window.location.replace(response.url)
+					}else{
+						$("div.result").html('<div class="alert alert-danger"><button type="button" class="close">×</button>Para finalizar o cadastro você precisa enviar uma foto do produto!</div>');
+						$("html").animate({ scrollTop: 0 }, 600);
+
+						$('.alert .close').on("click", function(e){
+						$(this).parent().fadeTo(500, 0).slideUp(500);
+						});
 					}
 
 
