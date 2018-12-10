@@ -1,0 +1,50 @@
+<!--Extend conteudo do base html-->
+{% extends "base.html" %}
+
+<!--Inicio Head -->
+{% block title %}Registro - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+
+{{ super() }}
+
+	<script type="text/javascript">
+		function goFocus(elementID){
+
+		document.getElementById(elementID).focus();
+
+	}
+	</script>
+
+{% endblock %}
+
+<body onload="goFocus('email')">
+{% block content %}
+<div class=" pure-g mt-3">
+
+  <div class="pure-u-1 pure-u-lg-1-8"></div>
+  <div class="pure-u-1 pure-u-lg-1-8"></div>
+  <div class="pure-u-1 pure-u-lg-1-24"></div>
+	<div class=" pure-u-1 pure-u-lg-2-5 mt-3">
+    <div class="container">
+      <a href="index.html" class="logoab mt-3" id="logol">Agro+</a>
+
+      <div class="login">
+        <h1 class="content-subhead">DIGITE SEU EMAIL PARA RECUPERAR SUA SENHA</h1>
+      </div>
+
+      <div>
+        <form>
+          <div class="mb-1">
+            <input type="email" id="email" class="form-control" placeholder="Email" required="required">
+            <button class="btn btn-outline-success btncshadow floatr mt-2" type="submit">ENVIAR</button>
+          </div>
+        </form>
+        <a href="{{url_for('login')}}"><button class="btn btn-outline-success mt-1 btncshadow floatl">VOLTAR</button></a>
+      </div>
+    </div>
+    		
+  </div>
+  
+</div>
+{% endblock %}

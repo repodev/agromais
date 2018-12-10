@@ -1,0 +1,138 @@
+<!--Extend conteudo do base html-->
+{% extends "base.html" %}
+
+<!--Inicio Head -->
+{% block title %}Sobre - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+
+{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style-start.css')}}">
+    <link rel='stylesheet' href="{{ url_for('static',filename='css/nprogress.css')}}"/>
+    <link href="{{ url_for('static',filename='css/style.css')}}" rel='stylesheet'/>
+    <script src="{{ url_for('static',filename='css/nprogress.js')}}"></script>
+
+	<script>
+		function formatar(mascara, documento){
+		  var i = documento.value.length;
+		  var saida = mascara.substring(0,1);
+		  var texto = mascara.substring(i)
+		  
+		  if (texto.substring(0,1) != saida){
+		            documento.value += texto.substring(0,1);
+		  }
+		}
+	</script>
+	<script type="text/javascript">
+		function goFocus(elementID){
+
+		document.getElementById(elementID).focus();
+
+	}
+	</script>
+	<style type="text/css">
+		body{
+			font-family: 'Open Sans', sans-serif;
+			display: grid;
+			color: white;
+		}
+		p{
+			color: #afafaf;
+		}
+		
+	</style>
+
+	
+{% endblock %}
+
+{%  block content %}
+<body>
+
+<div id="preloader" class="load"> <img src="{{ url_for('static',filename='img/carregando.gif')}}"></div>
+
+<div class="splash-container">
+    <div class="splash">
+    	<a href="{{ url_for('index')}}"><img src="{{ url_for('static',filename='img/logo.png')}}" id="logos" class="pure-img-responsive" style="max-width: 20%;"></a>
+        <h1 class="splash-head fontr">Agro+</h1>
+        <p class="splash-subhead">
+            Classificando seu produto da maneira mais simples!
+        </p>
+        <p>
+            <a href="{{ url_for('registro')}}"><button class="btn btn-success btncshadow" id="startb">COMEÇAR</button></a>
+        </p>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <div class="content">
+        <h2 class="content-head is-center" style="color: #015249;">A melhor forma de lucrar.</h2>
+
+        <div class="pure-g">
+            <div class="l-box pure-u-1 pure-u-md-1-3 pure-u-lg-1-4" style="margin-left: 15%;">
+
+                <h3 class="content-subhead" style="color: #57bc90;">
+                    <i class="fa fa-rocket"></i>
+                    Anuncie rapidamente!
+                </h3>
+                <p>
+                    A maneira mais fácil e prática de se gerar renda é divulgando seu produto, deixe que a gente faça isso por você.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-3 pure-u-lg-1-4">
+                <h3 class="content-subhead" style="color: #57bc90;">
+                    <i class="fa fa-mobile"></i>
+                    Compátivel em qualquer dispositivo!
+                </h3>
+                <p>
+                    Chega de ficar sentado em uma cadeira acessando algun site, você pode comprar em qualquer lugar e a qualquer hora.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-3 pure-u-lg-1-4">
+                <h3 class="content-subhead" style="color: #57bc90;">
+                    <i class="fa fa-check-square-o"></i>
+                    Segurança em primeiro lugar!
+                </h3>
+                <p>
+                    Compre sem medo, e sem se perguntar sobre como ele vai chegar até você.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="ribbon l-box-lrg pure-g">
+        <div class="l-box-lrg is-center pure-u-1 pure-u-md-1-2 pure-u-lg-1-5">
+            <img width="300" alt="Cadeado" class="pure-img-responsive" src="{{ url_for('static',filename='img/cadeado.png')}}">
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
+
+            <h2 class="content-head content-head-ribbon">Preocupado se o produto é confiável ?</h2>
+
+            <p class="pwhite">
+                Aqui na agro+ nós classificamos os melhores produtos pra você. 
+            </p>
+            <p class="pwhite">
+            	<ul class="pwhite">
+            		<li>Tem prioridade em comprar algo ?</li>
+            		<li>Tem um produto e deseja anunciar ?</li>
+            		<li>Tem medo de compras online ?</li>
+            	</ul> 
+            </p>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2 class="content-head is-center">Projeto desenvolvido totalmente com frameworks OpenSource</h2>
+
+        <div class="pure-g">
+
+            <div class="l-box-lrg pure-u-1 pure-u-md-5-5">
+
+                <h4 class="txtc">Mais informações</h4>
+                <p class="txtc">
+                    Contato: contato@contato.com
+                </p>
+            </div>
+        </div>
+    </div>
+
+{%  endblock %}

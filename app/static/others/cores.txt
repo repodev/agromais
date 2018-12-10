@@ -1,0 +1,12 @@
+logo 178F20
+header - #00FF7F
+letras - #FFFFFF
+#77c9d4 azul claro 
+#45bdad
+#cf6766 laranja
+#57bc90 verde marine
+#015249 verde escuro
+#a5a5af cinza
+#f5f5f5;
+verde #009B36
+cinza bootstrap #f8f9fa

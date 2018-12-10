@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+<!--Inicio Head -->
+{% block title %}Meus produtos - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+{{ super() }}
+
+	<script type="text/javascript">
+		function goFocus(elementID){
+
+		document.getElementById(elementID).focus();
+
+	}
+	</script>
+
+
+{% endblock %}
+
+{% block content %}
+<body onload="goFocus('search')">
+
+<!-- Inicio nav - MENU -->
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+<!-- Fim nav - MENU -->
+
+
+<div class="pure-g ml-3">
+
+	<div class="pure-u-1 pure-u-lg-5-5">
+    
+	</div>
+  <div class="pure-u-1 pure-u-lg-5-5">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" class="colorb" href="#menu">Meus Produtos</a>
+      </li>
+     
+      
+    </ul>
+ 
+    <!-- Tab panes -->
+    <div class="tab-content colorb" style="background-color: white; margin-bottom: 10%;">
+      {% with messages = get_flashed_messages() %}
+{% if messages  %}
+
+      {% for message in messages %}
+
+        {% if message == "Este produto não foi ativado, o estoque é igual a 0 !!!"%}
+        <div class="alert alert-danger text-center" >
+        {{ message }}
+      </div>
+        {%else%}
+        <div class="alert alert-success text-center" >
+            {{ message }}
+          </div>
+        {% endif %}
+        
+      {% endfor %}
+    
+{% endif %}
+{% endwith %}
+      <div class="tab-pane container active mb-3" id="menu">
+        <div class="">
+          <h1 class="content-subhead ml-3">Produtos</h1>
+          <div class="row">
+            <div class="card-group">
+              
+              {% if (produtos) %}
+              {% for produto in produtos %}
+                
+              <!--produto[9].strftime('%d-%m-%Y %H:%M:%S')-->
+              <div class="col-sm-4">
+                <div class="card bg-default cshadow">
+                  
+                  <a href="{{url_for('produto', id_produto=produto[0])}}">
+                    
+                    <img class="card-img-top" src="static/upload/produtos/{{produto[2]}}" alt="Card image" style="width: 100%; height: 250px;">
+                    
+                  </a>
+              
+                  <div class="card-body ">
+                    <h4 class="card-title cardh4 "><a  class= "produto" href="{{url_for('produto', id_produto=produto[0])}}">{{produto[1]}}</a></h4>
+                <p class="aprod card-text cardp">Categoria:<a class="linkprod" href="{{ url_for('index',categoria=produto[6] )}}">
+                {{produto[7]}}</a></p> 
+               
+                <p class="aprod card-text cardp"><a class="linkprod" href="{{ url_for('perfil',produtor_id=produto[4] )}}">
+                {{produto[5]}}</a></p>
+                
+                    <p class="text-success card-text cardp">R${{produto[3]}}</p>
+                    
+                    <form class="cardform" action="" method="POST">
+                      <div class="input-group">                       
+                          <a href="{{url_for('edita_produto', id_produto=produto[0])}}" class="btn btn-info cardb">Editar</a>
+                        {%if (produto[8]) %}
+                          <input type="submit" class="btn btn-warning cardb" name="desativar" value="Desativar">
+                          
+                        {%else%}
+                          <input type="submit" class="btn btn-success cardb" name="ativar" value="Ativar">
+                        {%endif%}
+                        <input type="hidden" class="btn btn-warning cardb" name="id_produto" value="{{produto[0]}}" >
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              {%else%}
+              <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Nenhum produto encontrado!!!</h4>
+                <p>Ei, infelizmente não temos nenhum produto cadastrado em nossa base, você participa de algum programa da
+                  agricultura familiar ou possui plantações sem Agrotóxicos? anuncie seus produtos na nossa plataforma, 
+                  para fazer o cadastro <a href="{{url_for('registro')}}">clique aqui</a>
+                </p>
+                <hr>
+                
+              </div>
+            
+              {% endif %}
+             
+              
+            </div>
+          </div>
+        
+        </div>
+            
+    </div>
+
+
+
+      
+  </div>
+</div>
+
+ 
+</div>
+
+
+
+{% endblock %}
+

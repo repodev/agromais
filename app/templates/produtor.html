@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+<!--Inicio Head -->
+{% block title %}{{info[1]}} - {{ super() }}{% endblock %}
+{% block head %}
+<!--Herda conteudo da head sem sobrescrer-->
+{{ super() }}
+
+	<script type="text/javascript">
+		function goFocus(elementID){
+
+		document.getElementById(elementID).focus();
+
+	}
+	</script>
+
+
+{% endblock %}
+
+{% block content %}
+<body onload="goFocus('search')">
+
+<!-- Inicio nav - MENU -->
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+<!-- Fim nav - MENU -->
+
+
+<div class="pure-g ml-3">
+
+
+  <div class="pure-u-1 pure-u-lg-5-5">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" class="colorb" href="#menu">Informações</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" class="colorb" href="#menu1">Produtos</a>
+      </li>
+      
+    </ul>
+ 
+    <!-- Tab panes -->
+    {% if(info)%}
+    <div class="tab-content" style="background-color: white; margin-bottom: 10%;">
+      
+      <div class="tab-pane container active mb-3" id="menu">
+        <br>
+        <div class="form-perfil ml-3">
+          <!--
+          <div class="perfil">
+                  <h1 class="content-subhead" style="margin-top: -1PX; color: #afafaf;">perfil</h1>
+            </div>
+            
+            <form class="ml-3">
+              <div class="form-group colorb">
+                <label for="nome">NOME:</label>
+                <input type="text" class="form-control-plaintext" value="Fulano de tal" disabled="disabled">
+              </div>
+              <div class="form-group colorb">
+                <label for="nome">CONTATO:</label>
+                <input type="text" class="form-control-plaintext" value="(XX)XXXXX-XXXX" disabled="disabled">
+              </div>
+              <div class="form-group colorb">
+                <label for="nome">ENDEREÇO:</label>
+                <input type="text" class="form-control-plaintext" value="Crato - Bairro Seminário Rua tal 00" disabled="disabled">
+              </div>
+            </form>
+            -->
+          <div class="perfil">
+                  <h1 class="content-subhead" style="margin-top: -1PX;color: #afafaf;">Loja</h1>
+            </div>
+          <form class="ml-3">
+            <div class="pure-u-1 pure-u-lg-2-5"><img src="../../static/upload/produtores/{{info[6]}}"></div>
+            
+            <br><br>
+            <div class="form-group colorb">
+              <label for="nome"><b>NOME:</b></label>
+              <input type="text" class="form-control-plaintext" value="{{info[1]}}" disabled="disabled">
+              
+            </div>
+            <div class="form-group colorb">
+                <label for="nome"><b>DESCRIÇÃO:</b></label>
+                
+                   <p class="pre" style="color: #000000 !important;">{{info[3]}}</p>
+               
+              </div>
+            <div class="form-group colorb">
+              <label for="nome"><b>CONTATO COMERCIAL:</b></label>
+              <input type="text" class="form-control-plaintext" value="{{info[4]}}" disabled="disabled">
+            </div>
+            <div class="form-group colorb">
+              <label for="nome"><b>ENDEREÇO:</b></label>
+              <input type="text" class="form-control-plaintext" value="{{info[5]}}" disabled="disabled">
+            </div>
+            
+          </form>
+      </div>
+      {%endif%}
+    </div>
+
+
+
+
+      <div class="tab-pane container fade" id="menu1">
+          <h1 class="content-subhead ml-3">Produtos</h1>
+        <div class="row ml-3">
+        
+        <div class="card-group mb-3">
+            {% if (produtos) %}
+            {% for produto in produtos %}
+          <div class="col-sm-4">
+            <div class="card bg-default cshadow">
+              <a href="{{url_for('produto', id_produto=produto[0])}}">
+                <img class="card-img-top imgc" src="../../static/upload/produtos/{{produto[2]}}" alt="Card image">
+              </a>
+              <div class="card-body ">
+                  <h4 class="card-title cardh4 "><a  class= "produto" href="{{url_for('produto', id_produto=produto[0])}}">{{produto[1]}}</a></h4>
+                  <p class="aprod card-text cardp">Categoria:<a class="linkprod" href="{{ url_for('index',categoria=produto[6] )}}">
+                  {{produto[7]}}</a></p> 
+                  <p class="text-success card-text cardp">R${{produto[3]}}</p>
+                <form class="cardform">
+                  <div class="input-group mb-1 ">
+                    
+                    <div class="input-group-append">
+                        <a href="{{url_for('produto', id_produto=produto[0])}}"><input type="button" class="btn btn-primary cardb" value="Comprar"></a>
+
+                    </div>  
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+      
+  </div>
+</div>
+
+ 
+</div>
+
+{% endblock %}
+
