@@ -134,13 +134,13 @@
 					<div class="result"></div>
 			<form id="register-form" method="post" enctype="multipart/form-data">
 				<div class="form-group">
-				    <input type="text" name="nome" class="form-control" id="nome" required="required" placeholder="Nome">
+				    <input type="text" name="nome" class="form-control" id="nome" maxlength="10" required="required" placeholder="Nome">
 				</div>
 				<div class="form-group">
-					<input type="text" name="sobrenome" class="form-control" id="sobrenome" required="required" placeholder="Sobrenome">
+					<input type="text" name="sobrenome" class="form-control" id="sobrenome"  maxlength="15" required="required" placeholder="Sobrenome">
 				</div>
 				<div class="form-group">
-					<input type="tel"  name="contato" class="form-control" maxlength="13"  required="required" value="" id="contato" placeholder="Contato" > 
+					<input type="tel"  name="contato" class="form-control" maxlength="16"  required="required" value="" id="contato" placeholder="Contato" > 
 				</div>
 				<div class="input-group mt-3">
 				  <div class="input-group-prepend">
@@ -154,22 +154,22 @@
 					  </select>
 					</div>
 				  </div>
-				  <input type="text" name="bairro" class="form-control" id="bairro" required="required"placeholder="Bairro">
+				  <input type="text" name="bairro" maxlength="50" class="form-control" id="bairro" required="required"placeholder="Bairro">
 				</div>
 				<div class="form-group">
-					<input type="text" name="endereco" class="form-control" id="endereco" required="required"placeholder="Endereço">
+					<input type="text" name="endereco" maxlength="50"  class="form-control" id="endereco" required="required"placeholder="Endereço">
 				</div>
 				<div class="form-group">
 					<input type="tel" name="cpf" class="form-control" maxlength="14"  required="required" value="" id="cpf" placeholder="CPF">
 				</div>
 				<div class="form-group">
-					   <input type="email" name="email" class="form-control" required="required" id="email" placeholder="Email">
+					   <input type="email" name="email" class="form-control" maxlength="30"  required="required" id="email" placeholder="Email">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" required="required" id="senhaum" placeholder="Senha">
+					<input type="password" class="form-control" pattern=".{6,}" required title="Senha invalida, informe no minimo 6 caracteres" maxlength="15" required="required" id="senhaum" placeholder="Senha" name="senha_um">
 				</div>
 				<div class="form-group">
-					<input type="password" name="senha" class="form-control" required="required" id="senha" placeholder="Confirmar senha">
+					<input type="password" name="senha" class="form-control" pattern=".{6,}" required title="Senha invalida, informe no minimo 6 caracteres" required="required" id="senha" placeholder="Confirmar senha">
 				</div>
 				<div class="form-check">
 				  <label class="form-check-label labelblack">
@@ -177,17 +177,17 @@
 				  </label>
 				  <div class="form-group mt-2" id="mp" style="display: none;">
 				  	<div class="form-group">
-				    	<input type="text" name="nome_loja" class="form-control" id="nomeloja"  placeholder="Nome Loja Física ou Nome do Produtor">
+				    	<input type="text" name="nome_loja" class="form-control" id="nomeloja" maxlength="30"  placeholder="Nome Loja Física ou Nome do Produtor">
 					</div>
 				  	<div class="form-group">
-						<input type="tel"  name="contato_comercial" class="form-control"  value="" id="contatocomercial" placeholder="Contato Comercial" > 
+						<input type="tel"  name="contato_comercial" class="form-control" maxlength="16" value="" id="contatocomercial" placeholder="Contato Comercial" > 
 					</div>
 					<div class="form-group">
 						<label class="text-danger">Caso possua CNPJ, favor informar.</LAbel>
-						<input type="tel"  name="cnpj"  class="form-control"   value="" id="cnpj" placeholder="CNPJ" > 
+						<input type="tel"  name="cnpj"  class="form-control" maxlength="18"  value="" id="cnpj" placeholder="CNPJ" > 
 					</div>
 					<div class="form-group">
-						<input type="text" name="endereco_loja" class="form-control" id="enderecoloja" placeholder="Endereço Loja Física">
+						<input type="text" name="endereco_loja" maxlength="50" class="form-control" id="enderecoloja" placeholder="Endereço Loja Física">
 					</div>
 					<div class="form-group custom-file">
 						<input type="file" class="custom-file-input" name="foto_loja" id="customFile">
@@ -195,13 +195,13 @@
 					</div>
 					<div class="form-group colorb">
 					  <label for="desc" class="colorb content-subhead">Descrição:</label>
-					  <textarea name="descricao_loja" class="form-control noresize" rows="5" id="desc"></textarea>
+					  <textarea name="descricao_loja" class="form-control noresize" rows="5" id="desc" maxlength="300"></textarea>
 					</div>		
 				  </div>
 				</div>
 				<div class="form-group form-check">
 					<label class="form-check-label labelblack">
-						<input class="form-check-input" name="check" id="check" value="false" type="checkbox" style=""> Aceitar <a href="termos.html" data-toggle="modal" data-target="#termos" required="required">termos de Usuário.</a>
+						<input class="form-check-input" name="check" id="check" value="false" type="checkbox" required> Aceitar <a href="termos.html" data-toggle="modal" data-target="#termos" required="required">termos de Usuário.</a>
 					</label>
 				</div>
 				<button type="submit" id="teste" class="btn btn-success floatr marginb5 cshadow">REGISTRAR</button>
@@ -216,6 +216,7 @@
 </div>
 <script>
 	$(document).ready(function(){
+
 
 		function register_form(){
 			var form_data = new FormData($('#register-form')[0]);

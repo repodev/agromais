@@ -99,16 +99,14 @@ def confirma_edicao_produto():
         FLAG = "foto_produto"
         logado = session['tipo_conta']
         id_produtor = session['id_produtor']
-        imagem_produto = gera_nome_imagem(FLAG)
 
-        produto = Produto(request.form['nome'],request.form['categoria'],request.form['subcategoria'],request.form['preco'],request.form['estoque'],imagem_produto,request.form['descricao_produto'],id_produtor)
+        produto = Produto(request.form['nome'],request.form['categoria'],request.form['subcategoria'],request.form['preco'],request.form['estoque'],"falta fazer",request.form['descricao_produto'],id_produtor)
         
-        resposta = atualiza_produto(produto.getNome_produto(),produto.getCategoria(),produto.getSubcategoria(),produto.getPreco(),produto.getEstoque(),produto.getFoto_produto(),produto.getDescricao_produto(),produto.getId_produtor(),request.form('id_produto'))
+        resposta = atualiza_produto(produto.getNome_produto(),produto.getCategoria(),produto.getSubcategoria(),produto.getPreco(),produto.getEstoque(),produto.getDescricao_produto(),produto.getId_produtor(),request.form['id_produto'])
         erro = ErrorAtualizaProduto()
 
         if (resposta=='Aceito'):
-            salva_imagem(FLAG,imagem_produto)
-            flash('Produto cadastrado com sucesso.')
+            flash('Produto atualizado com sucesso.')
             url = "/meus_produtos"
             return jsonify({'status':'1','url':url})
 
