@@ -27,6 +27,7 @@ CREATE TABLE public.perfil_produtor (
   contato_comercial varchar(16) NOT NULL,
   endereco_comercial varchar(50) NULL,
   foto_loja varchar(400) DEFAULT NULL,
+  UNIQUE (cnpj),
   CONSTRAINT perfil_produtor_pkey PRIMARY KEY (id_produtor)
 );
 CREATE TABLE public.categoria (
