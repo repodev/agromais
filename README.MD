@@ -1,8 +1,9 @@
-#Repositorio DEV para AGROMAIS  
+#Repositorio Master para AGROMAIS  
 
 Iniciado 14/11/2018 15:56
 
-Renan
-Lucas
-Alex
+
+Renan Gustavo (:wrench:)  
+Fransico Lucas (:wrench:)  
+Alex Adaumi (:art:)
 
